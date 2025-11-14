@@ -1,0 +1,102 @@
+{
+  "frame_number": 242,
+  "frame_filename": "frame_00242.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.748,
+      "bbox": {
+        "x1": 443.6851501464844,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 129.989501953125
+      },
+      "normalized": {
+        "center_x_ratio": 0.8851,
+        "center_y_ratio": 0.0635,
+        "area_ratio": 0.0292
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.6892,
+      "bbox": {
+        "x1": 2.322070360183716,
+        "y1": 377.21942138671875,
+        "x2": 546.8341064453125,
+        "y2": 791.9276733398438
+      },
+      "normalized": {
+        "center_x_ratio": 0.4767,
+        "center_y_ratio": 0.5709,
+        "area_ratio": 0.3828
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3072,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 35.890625,
+        "x2": 576.0,
+        "y2": 971.91650390625
+      },
+      "normalized": {
+        "center_x_ratio": 0.5,
+        "center_y_ratio": 0.4921,
+        "area_ratio": 0.9141
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2858,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 327.5752868652344,
+        "x2": 269.6950378417969,
+        "y2": 523.84326171875
+      },
+      "normalized": {
+        "center_x_ratio": 0.2341,
+        "center_y_ratio": 0.4157,
+        "area_ratio": 0.0897
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2741,
+      "bbox": {
+        "x1": 341.9557189941406,
+        "y1": 708.7981567382812,
+        "x2": 576.0,
+        "y2": 1023.8147583007812
+      },
+      "normalized": {
+        "center_x_ratio": 0.7968,
+        "center_y_ratio": 0.846,
+        "area_ratio": 0.125
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2572,
+      "bbox": {
+        "x1": 339.0625915527344,
+        "y1": 337.0897521972656,
+        "x2": 575.7825317382812,
+        "y2": 1024.0
+      },
+      "normalized": {
+        "center_x_ratio": 0.7941,
+        "center_y_ratio": 0.6646,
+        "area_ratio": 0.2757
+      }
+    }
+  ]
+}

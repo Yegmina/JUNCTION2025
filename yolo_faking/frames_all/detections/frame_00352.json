@@ -1,0 +1,54 @@
+{
+  "frame_number": 352,
+  "frame_filename": "frame_00352.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.6092,
+      "bbox": {
+        "x1": 1.1101562976837158,
+        "y1": 388.82373046875,
+        "x2": 403.26446533203125,
+        "y2": 904.7271728515625
+      },
+      "normalized": {
+        "center_x_ratio": 0.351,
+        "center_y_ratio": 0.6316,
+        "area_ratio": 0.3518
+      }
+    },
+    {
+      "class_id": 54,
+      "class_name": "donut",
+      "confidence": 0.3455,
+      "bbox": {
+        "x1": 232.00137329101562,
+        "y1": 319.1099548339844,
+        "x2": 523.9371337890625,
+        "y2": 634.2850952148438
+      },
+      "normalized": {
+        "center_x_ratio": 0.6562,
+        "center_y_ratio": 0.4655,
+        "area_ratio": 0.156
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.2911,
+      "bbox": {
+        "x1": 2.174267530441284,
+        "y1": 12.05859375,
+        "x2": 576.0,
+        "y2": 864.2133178710938
+      },
+      "normalized": {
+        "center_x_ratio": 0.5019,
+        "center_y_ratio": 0.4279,
+        "area_ratio": 0.829
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "frame_number": 323,
+  "frame_filename": "frame_00323.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.8805,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 351.77490234375,
+        "x2": 411.5146484375,
+        "y2": 1018.3228759765625
+      },
+      "normalized": {
+        "center_x_ratio": 0.3572,
+        "center_y_ratio": 0.669,
+        "area_ratio": 0.465
+      }
+    }
+  ]
+}

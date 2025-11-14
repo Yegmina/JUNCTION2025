@@ -1,0 +1,38 @@
+{
+  "frame_number": 365,
+  "frame_filename": "frame_00365.jpg",
+  "detections": [
+    {
+      "class_id": 55,
+      "class_name": "cake",
+      "confidence": 0.6195,
+      "bbox": {
+        "x1": 47.55034255981445,
+        "y1": 298.8216857910156,
+        "x2": 524.9656372070312,
+        "y2": 709.9577026367188
+      },
+      "normalized": {
+        "center_x_ratio": 0.497,
+        "center_y_ratio": 0.4926,
+        "area_ratio": 0.3328
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3632,
+      "bbox": {
+        "x1": 4.378662109375,
+        "y1": 6.950879096984863,
+        "x2": 576.0,
+        "y2": 862.6617431640625
+      },
+      "normalized": {
+        "center_x_ratio": 0.5038,
+        "center_y_ratio": 0.4246,
+        "area_ratio": 0.8293
+      }
+    }
+  ]
+}

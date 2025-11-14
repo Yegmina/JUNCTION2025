@@ -1,0 +1,102 @@
+{
+  "frame_number": 262,
+  "frame_filename": "frame_00262.jpg",
+  "detections": [
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.8043,
+      "bbox": {
+        "x1": 2.1158204078674316,
+        "y1": 380.8977966308594,
+        "x2": 526.491455078125,
+        "y2": 793.95263671875
+      },
+      "normalized": {
+        "center_x_ratio": 0.4589,
+        "center_y_ratio": 0.5737,
+        "area_ratio": 0.3672
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.7377,
+      "bbox": {
+        "x1": 443.5521545410156,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 130.1708984375
+      },
+      "normalized": {
+        "center_x_ratio": 0.885,
+        "center_y_ratio": 0.0636,
+        "area_ratio": 0.0292
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.428,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 334.7297058105469,
+        "x2": 255.56005859375,
+        "y2": 524.0651245117188
+      },
+      "normalized": {
+        "center_x_ratio": 0.2218,
+        "center_y_ratio": 0.4193,
+        "area_ratio": 0.082
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3571,
+      "bbox": {
+        "x1": 336.7824401855469,
+        "y1": 406.36798095703125,
+        "x2": 574.5740356445312,
+        "y2": 1024.0
+      },
+      "normalized": {
+        "center_x_ratio": 0.7911,
+        "center_y_ratio": 0.6984,
+        "area_ratio": 0.249
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3202,
+      "bbox": {
+        "x1": 339.88671875,
+        "y1": 708.0799560546875,
+        "x2": 575.5289306640625,
+        "y2": 1023.8220825195312
+      },
+      "normalized": {
+        "center_x_ratio": 0.7946,
+        "center_y_ratio": 0.8457,
+        "area_ratio": 0.1261
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3062,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 41.43154525756836,
+        "x2": 576.0,
+        "y2": 981.404296875
+      },
+      "normalized": {
+        "center_x_ratio": 0.5,
+        "center_y_ratio": 0.4994,
+        "area_ratio": 0.9179
+      }
+    }
+  ]
+}

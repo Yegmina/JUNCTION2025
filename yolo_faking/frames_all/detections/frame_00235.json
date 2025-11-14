@@ -1,0 +1,102 @@
+{
+  "frame_number": 235,
+  "frame_filename": "frame_00235.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.7506,
+      "bbox": {
+        "x1": 443.6795349121094,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 129.93743896484375
+      },
+      "normalized": {
+        "center_x_ratio": 0.8851,
+        "center_y_ratio": 0.0634,
+        "area_ratio": 0.0292
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.7481,
+      "bbox": {
+        "x1": 1.903955101966858,
+        "y1": 374.25537109375,
+        "x2": 536.6090087890625,
+        "y2": 788.3303833007812
+      },
+      "normalized": {
+        "center_x_ratio": 0.4675,
+        "center_y_ratio": 0.5677,
+        "area_ratio": 0.3754
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3536,
+      "bbox": {
+        "x1": 341.49017333984375,
+        "y1": 707.3204956054688,
+        "x2": 576.0,
+        "y2": 1023.8211059570312
+      },
+      "normalized": {
+        "center_x_ratio": 0.7964,
+        "center_y_ratio": 0.8453,
+        "area_ratio": 0.1258
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3098,
+      "bbox": {
+        "x1": 0.06499023735523224,
+        "y1": 36.50439453125,
+        "x2": 576.0,
+        "y2": 975.3038940429688
+      },
+      "normalized": {
+        "center_x_ratio": 0.5001,
+        "center_y_ratio": 0.494,
+        "area_ratio": 0.9167
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2791,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 324.87933349609375,
+        "x2": 271.1022644042969,
+        "y2": 520.8025512695312
+      },
+      "normalized": {
+        "center_x_ratio": 0.2353,
+        "center_y_ratio": 0.4129,
+        "area_ratio": 0.0901
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2632,
+      "bbox": {
+        "x1": 346.36474609375,
+        "y1": 384.9323425292969,
+        "x2": 575.4503784179688,
+        "y2": 1023.9744262695312
+      },
+      "normalized": {
+        "center_x_ratio": 0.8002,
+        "center_y_ratio": 0.6879,
+        "area_ratio": 0.2482
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "frame_number": 355,
+  "frame_filename": "frame_00355.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.6257,
+      "bbox": {
+        "x1": 0.617431640625,
+        "y1": 411.8654479980469,
+        "x2": 355.7778015136719,
+        "y2": 866.5826416015625
+      },
+      "normalized": {
+        "center_x_ratio": 0.3094,
+        "center_y_ratio": 0.6242,
+        "area_ratio": 0.2738
+      }
+    }
+  ]
+}

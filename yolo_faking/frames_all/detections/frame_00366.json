@@ -1,0 +1,22 @@
+{
+  "frame_number": 366,
+  "frame_filename": "frame_00366.jpg",
+  "detections": [
+    {
+      "class_id": 55,
+      "class_name": "cake",
+      "confidence": 0.6386,
+      "bbox": {
+        "x1": 46.26611328125,
+        "y1": 303.04278564453125,
+        "x2": 527.1566162109375,
+        "y2": 718.0017700195312
+      },
+      "normalized": {
+        "center_x_ratio": 0.4978,
+        "center_y_ratio": 0.4986,
+        "area_ratio": 0.3383
+      }
+    }
+  ]
+}

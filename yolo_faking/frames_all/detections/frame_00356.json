@@ -1,0 +1,38 @@
+{
+  "frame_number": 356,
+  "frame_filename": "frame_00356.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.6251,
+      "bbox": {
+        "x1": 1.0592041015625,
+        "y1": 402.0752868652344,
+        "x2": 317.0322570800781,
+        "y2": 842.5380249023438
+      },
+      "normalized": {
+        "center_x_ratio": 0.2761,
+        "center_y_ratio": 0.6077,
+        "area_ratio": 0.236
+      }
+    },
+    {
+      "class_id": 54,
+      "class_name": "donut",
+      "confidence": 0.3056,
+      "bbox": {
+        "x1": 187.37979125976562,
+        "y1": 315.97332763671875,
+        "x2": 520.6155395507812,
+        "y2": 633.44677734375
+      },
+      "normalized": {
+        "center_x_ratio": 0.6146,
+        "center_y_ratio": 0.4636,
+        "area_ratio": 0.1794
+      }
+    }
+  ]
+}

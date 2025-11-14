@@ -1,0 +1,38 @@
+{
+  "frame_number": 404,
+  "frame_filename": "frame_00404.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.7114,
+      "bbox": {
+        "x1": 1.512182593345642,
+        "y1": 518.1854858398438,
+        "x2": 154.58567810058594,
+        "y2": 1019.7955932617188
+      },
+      "normalized": {
+        "center_x_ratio": 0.1355,
+        "center_y_ratio": 0.751,
+        "area_ratio": 0.1302
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.5264,
+      "bbox": {
+        "x1": 343.549560546875,
+        "y1": 577.1005249023438,
+        "x2": 576.0,
+        "y2": 1003.7760009765625
+      },
+      "normalized": {
+        "center_x_ratio": 0.7982,
+        "center_y_ratio": 0.7719,
+        "area_ratio": 0.1682
+      }
+    }
+  ]
+}

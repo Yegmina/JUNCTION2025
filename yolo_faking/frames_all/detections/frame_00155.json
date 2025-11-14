@@ -1,0 +1,118 @@
+{
+  "frame_number": 155,
+  "frame_filename": "frame_00155.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.84,
+      "bbox": {
+        "x1": 385.8222351074219,
+        "y1": 0.296875,
+        "x2": 576.0,
+        "y2": 128.06727600097656
+      },
+      "normalized": {
+        "center_x_ratio": 0.8349,
+        "center_y_ratio": 0.0627,
+        "area_ratio": 0.0412
+      }
+    },
+    {
+      "class_id": 52,
+      "class_name": "hot dog",
+      "confidence": 0.5762,
+      "bbox": {
+        "x1": 15.401659965515137,
+        "y1": 295.6878662109375,
+        "x2": 433.51202392578125,
+        "y2": 652.4267578125
+      },
+      "normalized": {
+        "center_x_ratio": 0.3897,
+        "center_y_ratio": 0.4629,
+        "area_ratio": 0.2529
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.5332,
+      "bbox": {
+        "x1": 10.336328506469727,
+        "y1": 297.35125732421875,
+        "x2": 432.7769470214844,
+        "y2": 654.69091796875
+      },
+      "normalized": {
+        "center_x_ratio": 0.3846,
+        "center_y_ratio": 0.4649,
+        "area_ratio": 0.2559
+      }
+    },
+    {
+      "class_id": 41,
+      "class_name": "cup",
+      "confidence": 0.4042,
+      "bbox": {
+        "x1": 1.3770874738693237,
+        "y1": 747.3942260742188,
+        "x2": 111.11385345458984,
+        "y2": 1023.5575561523438
+      },
+      "normalized": {
+        "center_x_ratio": 0.0976,
+        "center_y_ratio": 0.8647,
+        "area_ratio": 0.0514
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3884,
+      "bbox": {
+        "x1": 1.67724609375,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 752.4286499023438
+      },
+      "normalized": {
+        "center_x_ratio": 0.5015,
+        "center_y_ratio": 0.3674,
+        "area_ratio": 0.7327
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.365,
+      "bbox": {
+        "x1": 1.4935302734375,
+        "y1": 748.2659301757812,
+        "x2": 111.3703384399414,
+        "y2": 1023.0177001953125
+      },
+      "normalized": {
+        "center_x_ratio": 0.098,
+        "center_y_ratio": 0.8649,
+        "area_ratio": 0.0512
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3309,
+      "bbox": {
+        "x1": 263.16748046875,
+        "y1": 366.1146545410156,
+        "x2": 572.474609375,
+        "y2": 1022.5626831054688
+      },
+      "normalized": {
+        "center_x_ratio": 0.7254,
+        "center_y_ratio": 0.6781,
+        "area_ratio": 0.3442
+      }
+    }
+  ]
+}

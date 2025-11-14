@@ -1,0 +1,70 @@
+{
+  "frame_number": 414,
+  "frame_filename": "frame_00414.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.8238,
+      "bbox": {
+        "x1": 323.8394775390625,
+        "y1": 340.7477111816406,
+        "x2": 575.3388671875,
+        "y2": 606.1888427734375
+      },
+      "normalized": {
+        "center_x_ratio": 0.7805,
+        "center_y_ratio": 0.4624,
+        "area_ratio": 0.1132
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.7127,
+      "bbox": {
+        "x1": 1.3301270008087158,
+        "y1": 514.0817260742188,
+        "x2": 169.2112579345703,
+        "y2": 1021.4782104492188
+      },
+      "normalized": {
+        "center_x_ratio": 0.148,
+        "center_y_ratio": 0.7498,
+        "area_ratio": 0.1444
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3591,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 141.9968719482422,
+        "x2": 565.0803833007812,
+        "y2": 1001.5861206054688
+      },
+      "normalized": {
+        "center_x_ratio": 0.4905,
+        "center_y_ratio": 0.5584,
+        "area_ratio": 0.8235
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.2872,
+      "bbox": {
+        "x1": 67.3375473022461,
+        "y1": 285.40869140625,
+        "x2": 499.0101013183594,
+        "y2": 700.0784301757812
+      },
+      "normalized": {
+        "center_x_ratio": 0.4916,
+        "center_y_ratio": 0.4812,
+        "area_ratio": 0.3035
+      }
+    }
+  ]
+}

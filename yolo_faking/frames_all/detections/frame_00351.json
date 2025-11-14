@@ -1,0 +1,38 @@
+{
+  "frame_number": 351,
+  "frame_filename": "frame_00351.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.5863,
+      "bbox": {
+        "x1": 0.18818359076976776,
+        "y1": 391.783203125,
+        "x2": 489.45831298828125,
+        "y2": 903.9094848632812
+      },
+      "normalized": {
+        "center_x_ratio": 0.425,
+        "center_y_ratio": 0.6327,
+        "area_ratio": 0.4248
+      }
+    },
+    {
+      "class_id": 52,
+      "class_name": "hot dog",
+      "confidence": 0.3272,
+      "bbox": {
+        "x1": 40.171485900878906,
+        "y1": 322.8753967285156,
+        "x2": 527.6192626953125,
+        "y2": 619.61767578125
+      },
+      "normalized": {
+        "center_x_ratio": 0.4929,
+        "center_y_ratio": 0.4602,
+        "area_ratio": 0.2452
+      }
+    }
+  ]
+}
