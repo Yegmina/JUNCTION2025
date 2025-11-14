@@ -34,6 +34,11 @@ def get_indexed_image_paths():
     return [item.get("image_path", "") for item in faiss_metadata]
 
 
+def get_indexed_image_indices():
+    """Get set of image indices already in the index."""
+    return {item.get("image_index") for item in faiss_metadata if "image_index" in item}
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Load FAISS index and metadata
@@ -73,8 +78,29 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Image Description API", lifespan=lifespan)
 
 
-async def get_image_description_from_bytes(image_bytes: bytes) -> str:
-    """Get image description using OpenAI Vision API from image bytes."""
+def parse_index_from_filename(filename: str) -> Optional[int]:
+    """Extract index number from filename (number before underscore)."""
+    if not filename:
+        return None
+    basename = os.path.basename(filename)
+    if "_" in basename:
+        index_part = basename.split("_")[0]
+        try:
+            return int(index_part)
+        except ValueError:
+            return None
+    return None
+
+
+async def get_image_description_from_bytes(
+    image_bytes: bytes, variation: int = 0
+) -> str:
+    """Get image description using OpenAI Vision API from image bytes.
+
+    Args:
+        image_bytes: The image bytes
+        variation: Variation number (0-4) to generate different descriptions
+    """
     try:
         # Load prompt from file
         prompt_file = "prompt.txt"
@@ -84,24 +110,26 @@ async def get_image_description_from_bytes(image_bytes: bytes) -> str:
         else:
             system_prompt = "You are a food analysis assistant. Describe the food in the image objectively, focusing on ingredients, preparation style, and dish type."
 
-        # Open image from bytes
         image = Image.open(BytesIO(image_bytes))
 
-        # Convert to base64 for API
         buffered = BytesIO()
-        # Preserve original format or convert to PNG
         if image.format:
             image.save(buffered, format=image.format)
         else:
             image.save(buffered, format="PNG")
         image_base64 = base64.b64encode(buffered.getvalue()).decode()
 
-        # Determine MIME type
         mime_type = image.format.lower() if image.format else "png"
         if mime_type == "jpeg":
             mime_type = "jpg"
 
-        # Call OpenAI Vision API
+        # Add variation instruction to get different descriptions
+        user_prompt = (
+            "Analyze this image and describe the food according to the instructions."
+        )
+        if variation > 0:
+            user_prompt += f" Provide a different perspective or emphasis on this description (variation {variation + 1})."
+
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
@@ -114,7 +142,7 @@ async def get_image_description_from_bytes(image_bytes: bytes) -> str:
                     "content": [
                         {
                             "type": "text",
-                            "text": "Analyze this image and describe the food according to the instructions.",
+                            "text": user_prompt,
                         },
                         {
                             "type": "image_url",
@@ -125,7 +153,8 @@ async def get_image_description_from_bytes(image_bytes: bytes) -> str:
                     ],
                 },
             ],
-            max_tokens=500,
+            max_tokens=1500,
+            temperature=0,
         )
 
         description = response.choices[0].message.content.strip()
@@ -145,41 +174,63 @@ async def get_embedding(text: str) -> np.ndarray:
 
 
 async def add_image_to_index(image_bytes: bytes, image_path: str = None) -> dict:
-    """Add an image to the FAISS index by describing it and embedding the description."""
+    """Add an image to the FAISS index by generating 5 descriptions and embedding each separately."""
     global faiss_index, faiss_metadata
 
     try:
-        # Check if image already exists
-        if image_path and image_path in get_indexed_image_paths():
-            return {
-                "success": False,
-                "message": "Image already in index",
-                "image_path": image_path,
-                "index_size": faiss_index.ntotal,
+        # Parse index from filename
+        image_index = parse_index_from_filename(image_path) if image_path else None
+
+        # Check if image with this index already exists
+        if image_index is not None:
+            indexed_indices = get_indexed_image_indices()
+            if image_index in indexed_indices:
+                return {
+                    "success": False,
+                    "message": f"Image with index {image_index} already in index",
+                    "image_path": image_path,
+                    "image_index": image_index,
+                    "index_size": faiss_index.ntotal,
+                }
+
+        # Generate 5 different descriptions
+        descriptions = []
+        for i in range(5):
+            description = await get_image_description_from_bytes(
+                image_bytes, variation=i
+            )
+            descriptions.append(description)
+
+        # Add each description separately to the index
+        added_count = 0
+        for i, description in enumerate(descriptions):
+            # Get embedding for description
+            embedding = await get_embedding(description)
+
+            # Reshape for FAISS (needs to be 2D array)
+            embedding = embedding.reshape(1, -1)
+
+            # Add to FAISS index
+            faiss_index.add(embedding)
+
+            # Store metadata with index number
+            metadata_entry = {
+                "image_path": image_path or "uploaded",
+                "description": description,
+                "description_variation": i + 1,
             }
+            if image_index is not None:
+                metadata_entry["image_index"] = image_index
 
-        # Get image description
-        description = await get_image_description_from_bytes(image_bytes)
-
-        # Get embedding for description
-        embedding = await get_embedding(description)
-
-        # Reshape for FAISS (needs to be 2D array)
-        embedding = embedding.reshape(1, -1)
-
-        # Add to FAISS index
-        faiss_index.add(embedding)
-
-        # Store metadata
-        faiss_metadata.append(
-            {"image_path": image_path or "uploaded", "description": description}
-        )
+            faiss_metadata.append(metadata_entry)
+            added_count += 1
 
         return {
             "success": True,
-            "message": "Image added to index",
+            "message": f"Image added to index with {added_count} descriptions",
             "image_path": image_path or "uploaded",
-            "description": description,
+            "image_index": image_index,
+            "descriptions_count": added_count,
             "index_size": faiss_index.ntotal,
         }
     except Exception as e:
@@ -284,22 +335,18 @@ async def get_index_stats():
 async def get_index_list():
     """Get all indexed images with their descriptions."""
     global faiss_index, faiss_metadata
-    
+
     if faiss_index is None or faiss_index.ntotal == 0:
-        return {
-            "total": 0,
-            "items": []
-        }
-    
+        return {"total": 0, "items": []}
+
     items = []
     for idx, metadata in enumerate(faiss_metadata):
-        items.append({
-            "index": idx,
-            "image_path": metadata.get("image_path", "unknown"),
-            "description": metadata.get("description", ""),
-        })
-    
-    return {
-        "total": len(items),
-        "items": items
-    }
+        items.append(
+            {
+                "index": idx,
+                "image_path": metadata.get("image_path", "unknown"),
+                "description": metadata.get("description", ""),
+            }
+        )
+
+    return {"total": len(items), "items": items}
