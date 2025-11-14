@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Miscellaneous
 *.class
 *.log
@@ -43,3 +44,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+=======
+__pycache__/
+.env
+venv
+*.pkl
+*.bin
+>>>>>>> 5418e17ffeedf3c8206c9e1d5968dd88cdbc2cae
