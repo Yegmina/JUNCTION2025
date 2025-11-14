@@ -278,3 +278,28 @@ async def get_index_stats():
         "metadata_count": len(faiss_metadata),
         "embedding_dimension": EMBEDDING_DIM,
     }
+
+
+@app.get("/index-list")
+async def get_index_list():
+    """Get all indexed images with their descriptions."""
+    global faiss_index, faiss_metadata
+    
+    if faiss_index is None or faiss_index.ntotal == 0:
+        return {
+            "total": 0,
+            "items": []
+        }
+    
+    items = []
+    for idx, metadata in enumerate(faiss_metadata):
+        items.append({
+            "index": idx,
+            "image_path": metadata.get("image_path", "unknown"),
+            "description": metadata.get("description", ""),
+        })
+    
+    return {
+        "total": len(items),
+        "items": items
+    }
