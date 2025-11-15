@@ -2,7 +2,7 @@
 
 An intelligent food discovery system that uses AI to analyze food images and videos, enabling semantic search and recommendations. Built with FastAPI backend and Flutter frontend.
 
-## 🎯 Project Overview
+## Project Overview
 
 This platform combines computer vision, natural language processing, and vector search to create a powerful food discovery experience. Users can:
 
@@ -11,7 +11,7 @@ This platform combines computer vision, natural language processing, and vector 
 - **Analyze food videos** with frame-by-frame analysis and audio transcription
 - **Discover restaurants and menu items** based on visual similarity
 
-## 🏗️ Architecture
+## Architecture
 
 ### Backend (FastAPI)
 - **FastAPI** server running on port 8000
@@ -29,35 +29,23 @@ This platform combines computer vision, natural language processing, and vector 
 - Video upload and analysis
 - Restaurant listings and recommendations
 
-## 📊 System Diagrams
+## System Diagrams
 
-We provide comprehensive visual diagrams of the system architecture:
+We provide comprehensive visual diagrams of the system architecture. Open any HTML file in your browser to view interactive diagrams.
 
 ### Interactive Diagrams (HTML)
-1. **[`complete_system_diagram.html`](complete_system_diagram.html)** ⭐ **MAIN DIAGRAM**
-   - Complete system architecture with all components
-   - Interactive: Click any component for detailed information
-   - Perfect for presentations
 
-2. **[`backend_diagram.html`](backend_diagram.html)**
-   - Detailed backend architecture
-   - All API endpoints and their connections
-   - AI model integration
+**Main Diagram:**
+- [`complete_system_diagram.html`](complete_system_diagram.html) - Complete system architecture with all components. Interactive: Click any component for detailed information. Perfect for presentations.
 
-3. **[`backend_flow_diagram.html`](backend_flow_diagram.html)**
-   - Data flow through the AI pipeline
-   - Step-by-step processing flow
-   - Data transformations
+**Detailed Diagrams:**
+- [`backend_diagram.html`](backend_diagram.html) - Detailed backend architecture, all API endpoints and their connections, AI model integration
+- [`backend_flow_diagram.html`](backend_flow_diagram.html) - Data flow through the AI pipeline, step-by-step processing flow, data transformations
+- [`video_analysis_diagram.html`](video_analysis_diagram.html) - Video analysis pipeline, multimodal processing (visual + audio), frame extraction and transcription flow
+- [`image_indexing_diagram.html`](image_indexing_diagram.html) - Image indexing process, 5-variation embedding strategy, FAISS storage workflow
 
-4. **[`video_analysis_diagram.html`](video_analysis_diagram.html)**
-   - Video analysis pipeline
-   - Multimodal processing (visual + audio)
-   - Frame extraction and transcription flow
-
-5. **[`image_indexing_diagram.html`](image_indexing_diagram.html)**
-   - Image indexing process
-   - 5-variation embedding strategy
-   - FAISS storage workflow
+**Diagram Index:**
+- [`diagrams_index.html`](diagrams_index.html) - View all diagrams in one place
 
 ### Documentation
 - **[`README_DIAGRAMS.md`](README_DIAGRAMS.md)** - Diagram usage guide
@@ -69,7 +57,7 @@ We provide comprehensive visual diagrams of the system architecture:
 
 **View all diagrams**: Open [`diagrams_index.html`](diagrams_index.html) in your browser
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -114,7 +102,7 @@ We provide comprehensive visual diagrams of the system architecture:
 
 See the Flutter app README in `copy_android/README.md` or `flutter2test/README.md`
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Image Operations
 
@@ -135,7 +123,7 @@ See the Flutter app README in `copy_android/README.md` or `flutter2test/README.m
 - **GET `/index-stats`** - Get FAISS index statistics
 - **GET `/index-list`** - List all indexed images
 
-## 🔧 Technology Stack
+## Technology Stack
 
 ### Backend
 - **FastAPI** - Modern Python web framework
@@ -155,7 +143,7 @@ See the Flutter app README in `copy_android/README.md` or `flutter2test/README.m
 - **text-embedding-3-small** - Text to 1536-dim vector
 - **ElevenLabs STT (scribe_v1)** - Audio to text
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 JUNCTION2025/
@@ -177,7 +165,7 @@ JUNCTION2025/
 └── *.html                    # System architecture diagrams
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Test Image Description
 ```bash
@@ -195,7 +183,7 @@ curl -X POST "http://localhost:8000/analyze-video" \
 
 See [`RUN_AND_TEST.md`](RUN_AND_TEST.md) for detailed testing instructions.
 
-## 🎨 Features
+## Features
 
 ### Image Search
 - **Semantic matching** - Find similar dishes by meaning, not just pixels
@@ -213,7 +201,7 @@ See [`RUN_AND_TEST.md`](RUN_AND_TEST.md) for detailed testing instructions.
 - **1536-dimensional vectors** - High-quality semantic representations
 - **Metadata storage** - Image paths, descriptions, and variations stored separately
 
-## 📚 Documentation
+## Documentation
 
 - **[PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md)** - Project concept and overview
 - **[BACKEND_ARCHITECTURE_DIAGRAM.md](BACKEND_ARCHITECTURE_DIAGRAM.md)** - Technical architecture
@@ -221,7 +209,7 @@ See [`RUN_AND_TEST.md`](RUN_AND_TEST.md) for detailed testing instructions.
 - **[AI_DATA_TRANSFORMATIONS.md](AI_DATA_TRANSFORMATIONS.md)** - AI processing pipeline
 - **[RUN_AND_TEST.md](RUN_AND_TEST.md)** - Setup and testing guide
 
-## 🔐 Environment Variables
+## Environment Variables
 
 Required:
 - `OPENAI_API_KEY` - Your OpenAI API key
@@ -229,7 +217,7 @@ Required:
 Optional:
 - `ELEVENLABS_API_KEY` - For video audio transcription
 
-## 🛠️ Development
+## Development
 
 ### Running the Server
 ```bash
@@ -253,7 +241,7 @@ make test
 make clean
 ```
 
-## 📊 Performance
+## Performance
 
 - **Image description**: 2-5 seconds per image
 - **Embedding generation**: 0.5-1 second
@@ -261,18 +249,18 @@ make clean
 - **Video frame extraction**: 1-2 seconds for 5 frames
 - **Audio transcription**: 5-15 seconds depending on length
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
 
-## 📝 License
+## License
 
 This project is part of JUNCTION 2025 hackathon.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - OpenAI for GPT-4 Vision and embeddings
 - ElevenLabs for speech-to-text API
