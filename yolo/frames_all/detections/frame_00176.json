@@ -1,0 +1,102 @@
+{
+  "frame_number": 176,
+  "frame_filename": "frame_00176.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.8449,
+      "bbox": {
+        "x1": 385.771484375,
+        "y1": 0.2739501893520355,
+        "x2": 576.0,
+        "y2": 128.09458923339844
+      },
+      "normalized": {
+        "center_x_ratio": 0.8349,
+        "center_y_ratio": 0.0627,
+        "area_ratio": 0.0412
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.7957,
+      "bbox": {
+        "x1": 16.705078125,
+        "y1": 303.6200256347656,
+        "x2": 437.5931701660156,
+        "y2": 667.2902221679688
+      },
+      "normalized": {
+        "center_x_ratio": 0.3944,
+        "center_y_ratio": 0.4741,
+        "area_ratio": 0.2595
+      }
+    },
+    {
+      "class_id": 52,
+      "class_name": "hot dog",
+      "confidence": 0.493,
+      "bbox": {
+        "x1": 22.45820426940918,
+        "y1": 302.2492370605469,
+        "x2": 437.1913146972656,
+        "y2": 666.42138671875
+      },
+      "normalized": {
+        "center_x_ratio": 0.399,
+        "center_y_ratio": 0.473,
+        "area_ratio": 0.2561
+      }
+    },
+    {
+      "class_id": 41,
+      "class_name": "cup",
+      "confidence": 0.471,
+      "bbox": {
+        "x1": 1.4015381336212158,
+        "y1": 746.8264770507812,
+        "x2": 111.3206558227539,
+        "y2": 1023.56591796875
+      },
+      "normalized": {
+        "center_x_ratio": 0.0978,
+        "center_y_ratio": 0.8644,
+        "area_ratio": 0.0516
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3958,
+      "bbox": {
+        "x1": 1.0241211652755737,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 760.1800537109375
+      },
+      "normalized": {
+        "center_x_ratio": 0.5009,
+        "center_y_ratio": 0.3712,
+        "area_ratio": 0.741
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2784,
+      "bbox": {
+        "x1": 275.4831237792969,
+        "y1": 322.1009521484375,
+        "x2": 572.8650512695312,
+        "y2": 1023.6408081054688
+      },
+      "normalized": {
+        "center_x_ratio": 0.7364,
+        "center_y_ratio": 0.6571,
+        "area_ratio": 0.3537
+      }
+    }
+  ]
+}

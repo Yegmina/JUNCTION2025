@@ -1,0 +1,54 @@
+{
+  "frame_number": 115,
+  "frame_filename": "frame_00115.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.8114,
+      "bbox": {
+        "x1": 4.12109375,
+        "y1": 140.51153564453125,
+        "x2": 575.3388671875,
+        "y2": 548.8007202148438
+      },
+      "normalized": {
+        "center_x_ratio": 0.503,
+        "center_y_ratio": 0.3366,
+        "area_ratio": 0.3954
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.4776,
+      "bbox": {
+        "x1": 3.6526856422424316,
+        "y1": 394.5729675292969,
+        "x2": 571.0468139648438,
+        "y2": 841.8920288085938
+      },
+      "normalized": {
+        "center_x_ratio": 0.4989,
+        "center_y_ratio": 0.6037,
+        "area_ratio": 0.4303
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3825,
+      "bbox": {
+        "x1": 3.771191358566284,
+        "y1": 141.21006774902344,
+        "x2": 576.0,
+        "y2": 966.7916259765625
+      },
+      "normalized": {
+        "center_x_ratio": 0.5033,
+        "center_y_ratio": 0.541,
+        "area_ratio": 0.801
+      }
+    }
+  ]
+}

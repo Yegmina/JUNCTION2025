@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Architecture Diagrams - Index</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 10px 5px;
+            font-size: 0.9em;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .card-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .card-desc {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .card-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .card-features li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .card-features li:before {
+            content: "✓ ";
+            color: #2ecc71;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .btn-star {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        .footer h3 {
+            margin-bottom: 20px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .footer-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Backend Architecture Diagrams</h1>
+            <p>AI-Powered Food Discovery System</p>
+            <div>
+                <span class="badge">v2.0 - Improved Design</span>
+                <span class="badge">5 Diagrams</span>
+                <span class="badge">Ready for Presentations</span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card" onclick="window.open('complete_system_diagram.html', '_blank')">
+                <div class="card-icon"></div>
+                <div class="card-title">Complete System</div>
+                <div class="card-desc">Complete system architecture - perfect starting point</div>
+                <ul class="card-features">
+                    <li>All components in one place</li>
+                    <li>Client, API, AI, Processing, Database</li>
+                    <li>Connections between all layers</li>
+                    <li>ElevenLabs connected to GPT-4</li>
+                </ul>
+                <a href="complete_system_diagram.html" class="btn btn-star">Open Diagram</a>
+            </div>
+
+            <div class="card" onclick="window.open('backend_diagram.html', '_blank')">
+                <div class="card-icon"></div>
+                <div class="card-title">Backend Architecture</div>
+                <div class="card-desc">Detailed backend architecture with API endpoints</div>
+                <ul class="card-features">
+                    <li>All API endpoints</li>
+                    <li>AI model integration</li>
+                    <li>FAISS vector database</li>
+                    <li>Processing layer</li>
+                </ul>
+                <a href="backend_diagram.html" class="btn">Open Diagram</a>
+            </div>
+
+            <div class="card" onclick="window.open('backend_flow_diagram.html', '_blank')">
+                <div class="card-icon"></div>
+                <div class="card-title">Data Flow Pipeline</div>
+                <div class="card-desc">Horizontal data flow through AI</div>
+                <ul class="card-features">
+                    <li>Input → Processing → AI → Storage</li>
+                    <li>Data transformations</li>
+                    <li>Semantic search flow</li>
+                    <li>Output generation</li>
+                </ul>
+                <a href="backend_flow_diagram.html" class="btn">Open Diagram</a>
+            </div>
+
+            <div class="card" onclick="window.open('video_analysis_diagram.html', '_blank')">
+                <div class="card-icon"></div>
+                <div class="card-title">Video Analysis</div>
+                <div class="card-desc">Multi-modal analysis: visual + audio</div>
+                <ul class="card-features">
+                    <li>Extract 5 key frames</li>
+                    <li>Analysis via GPT-4 Vision</li>
+                    <li>ElevenLabs audio transcription</li>
+                    <li>API retry logic</li>
+                </ul>
+                <a href="video_analysis_diagram.html" class="btn">Open Diagram</a>
+            </div>
+
+            <div class="card" onclick="window.open('image_indexing_diagram.html', '_blank')">
+                <div class="card-icon"></div>
+                <div class="card-title">Image Indexing</div>
+                <div class="card-desc">5-variation strategy for enhanced search</div>
+                <ul class="card-features">
+                    <li>5 different descriptions per image</li>
+                    <li>Embedding generation</li>
+                    <li>FAISS storage</li>
+                    <li>Metadata management</li>
+                </ul>
+                <a href="image_indexing_diagram.html" class="btn">Open Diagram</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>Documentation</h3>
+            <div class="footer-links">
+                <a href="DIAGRAMS_QUICKSTART.md" class="footer-link">Quick Start</a>
+                <a href="EXPORT_DIAGRAMS_GUIDE.md" class="footer-link">Export Guide</a>
+                <a href="README_DIAGRAMS.md" class="footer-link">Full Description</a>
+                <a href="PROJECT_OVERVIEW.md" class="footer-link">Project Overview</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                v2.0: Increased font size • Compact design • Improved connections
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add click animation
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    this.querySelector('a').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

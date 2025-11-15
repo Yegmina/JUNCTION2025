@@ -1,0 +1,86 @@
+{
+  "frame_number": 231,
+  "frame_filename": "frame_00231.jpg",
+  "detections": [
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.7548,
+      "bbox": {
+        "x1": 2.317333936691284,
+        "y1": 373.45166015625,
+        "x2": 552.4388427734375,
+        "y2": 789.1433715820312
+      },
+      "normalized": {
+        "center_x_ratio": 0.4816,
+        "center_y_ratio": 0.5677,
+        "area_ratio": 0.3877
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.75,
+      "bbox": {
+        "x1": 443.73199462890625,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 129.8961181640625
+      },
+      "normalized": {
+        "center_x_ratio": 0.8852,
+        "center_y_ratio": 0.0634,
+        "area_ratio": 0.0291
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3844,
+      "bbox": {
+        "x1": 342.9207763671875,
+        "y1": 707.6402587890625,
+        "x2": 576.0,
+        "y2": 1023.76171875
+      },
+      "normalized": {
+        "center_x_ratio": 0.7977,
+        "center_y_ratio": 0.8454,
+        "area_ratio": 0.1249
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3466,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 324.09716796875,
+        "x2": 271.5875244140625,
+        "y2": 519.4379272460938
+      },
+      "normalized": {
+        "center_x_ratio": 0.2358,
+        "center_y_ratio": 0.4119,
+        "area_ratio": 0.0899
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3268,
+      "bbox": {
+        "x1": 0.07377929985523224,
+        "y1": 37.68046951293945,
+        "x2": 576.0,
+        "y2": 974.5406494140625
+      },
+      "normalized": {
+        "center_x_ratio": 0.5001,
+        "center_y_ratio": 0.4942,
+        "area_ratio": 0.9148
+      }
+    }
+  ]
+}

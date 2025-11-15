@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete System Architecture - AI Food Discovery</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #00AEEF;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.3em;
+        }
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        /* Style for buttons inside diagram nodes */
+        .diagram-btn {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            color: #000;
+            transition: all 0.2s;
+            display: block;
+            box-sizing: border-box;
+        }
+        
+        .diagram-btn:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .diagram-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .diagram-btn b {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        /* Style for layer/subgraph buttons */
+        .layer-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px;
+            color: #000;
+            transition: all 0.2s;
+        }
+        
+        .layer-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-radius: 5px;
+        }
+        .info-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        .info-box h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .info-box ul {
+            color: #555;
+            line-height: 1.8;
+        }
+        .hint {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            animation: slideDown 0.3s;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        .close:hover {
+            color: #000;
+        }
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        .modal-body {
+            line-height: 1.8;
+        }
+        .code-block {
+            background: #f4f4f4;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .detail-section {
+            margin: 20px 0;
+        }
+        .detail-section h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .detail-section ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .detail-section li {
+            margin: 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 5px 5px 5px 0;
+        }
+        .badge-blue { background: #e3f2fd; color: #1565c0; }
+        .badge-green { background: #e8f5e9; color: #2e7d32; }
+        .badge-purple { background: #f3e5f5; color: #6a1b9a; }
+        .badge-orange { background: #fff3e0; color: #ef6c00; }
+        .badge-pink { background: #fce4ec; color: #ad1457; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Powered Food Discovery System</h1>
+        <p class="subtitle">Complete Backend Architecture with Deep AI Integration</p>
+        <p class="hint">Click on any component to see detailed information</p>
+        <div style="text-align: center; margin: 10px 0;">
+           <!-- <button onclick="showDetails('FASTAPI')" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Test Modal (Click FastAPI)</button>-->
+             <span style="margin: 0 10px; color: #7f8c8d;">|</span>
+            <span style="color: #7f8c8d; font-size: 0.9em;">All boxes below are clickable buttons</span>
+        </div>
+        
+        <div class="diagram-container">
+            <div class="mermaid" id="main-diagram">
+graph TB
+    subgraph CLIENT["<button class='layer-btn' data-component='CLIENT'>CLIENT LAYER</button>"]
+        FLUTTER["<button class='diagram-btn' data-component='FLUTTER'><b>Flutter Application</b><br/>Mobile & Web | Wolt-style UI</button>"]
+    end
+    
+    subgraph API_LAYER["<button class='layer-btn' data-component='API_LAYER'>API LAYER - FastAPI Server (Port 8000)</button>"]
+        FASTAPI["<button class='diagram-btn' data-component='FASTAPI'><b>FastAPI Application</b><br/>main.py</button>"]
+        EP1["<button class='diagram-btn' data-component='EP1'>/describe-image<br/>Image Description</button>"]
+        EP2["<button class='diagram-btn' data-component='EP2'>/add-image<br/>Index Image</button>"]
+        EP3["<button class='diagram-btn' data-component='EP3'>/search-images<br/>Semantic Search</button>"]
+        EP4["<button class='diagram-btn' data-component='EP4'>/analyze-video<br/>Video Analysis</button>"]
+        EP5["<button class='diagram-btn' data-component='EP5'>/index-stats<br/>Statistics</button>"]
+    end
+    
+    subgraph PROCESSING["<button class='layer-btn' data-component='PROCESSING'>PROCESSING LAYER</button>"]
+        PIL["<button class='diagram-btn' data-component='PIL'><b>PIL Image</b><br/>Decode • Base64 • Format</button>"]
+        CV2["<button class='diagram-btn' data-component='CV2'><b>OpenCV</b><br/>Frame Extract • 5 Frames • JPEG</button>"]
+        FFMPEG["<button class='diagram-btn' data-component='FFMPEG'><b>ffmpeg</b><br/>Audio Extract • WAV • PCM 16-bit</button>"]
+    end
+    
+    subgraph AI_CORE["<button class='layer-btn' data-component='AI_CORE'>AI PROCESSING CORE</button>"]
+        GPT4["<button class='diagram-btn' data-component='GPT4'><b>GPT-4 Vision (gpt-4o)</b><br/>Image → Text Description<br/>Max 1500 tokens • Temperature: 0</button>"]
+        EMBED["<button class='diagram-btn' data-component='EMBED'><b>text-embedding-3-small</b><br/>Text → 1536-dim Vector<br/>Semantic Encoding • float32</button>"]
+        STT["<button class='diagram-btn' data-component='STT'><b>ElevenLabs STT (scribe_v1)</b><br/>Audio → Text Transcription<br/>Word Timestamps • Language Detection</button>"]
+    end
+    
+    subgraph VECTOR_DB["<button class='layer-btn' data-component='VECTOR_DB'>VECTOR DATABASE (FAISS)</button>"]
+        FAISS["<button class='diagram-btn' data-component='FAISS'><b>FAISS IndexFlatL2</b><br/>L2 Distance • 1536 Dimensions • O(n)</button>"]
+        METADATA["<button class='diagram-btn' data-component='METADATA'><b>Metadata Storage</b><br/>Pickle • Paths • Descriptions</button>"]
+        QUERY["<button class='diagram-btn' data-component='QUERY'><b>Query Processing</b><br/>Description • Embedding • Search</button>"]
+        SIM["<button class='diagram-btn' data-component='SIM'><b>Similarity Engine</b><br/>L2 Distance → % • Ranking</button>"]
+    end
+    
+    FLUTTER -->|HTTP POST| FASTAPI
+    FASTAPI --> EP1 & EP2 & EP3 & EP4 & EP5
+    
+    EP1 & EP2 & EP3 --> PIL
+    EP4 --> CV2 & FFMPEG
+    
+    PIL & CV2 --> GPT4
+    FFMPEG --> STT
+    STT -.->|Text Output| GPT4
+    
+    GPT4 --> EMBED
+    EMBED --> FAISS
+    FAISS <--> METADATA
+    
+    EP2 --> FAISS
+    EP3 --> QUERY
+    QUERY --> FAISS
+    FAISS --> SIM
+    SIM --> EP3
+    
+    EP1 & EP3 & EP4 -->|JSON Response| FLUTTER
+    
+    style CLIENT fill:#e3f2fd,stroke:#1565c0,stroke-width:4px,color:#000
+    style API_LAYER fill:#f3e5f5,stroke:#6a1b9a,stroke-width:4px,color:#000
+    style PROCESSING fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+    style AI_CORE fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
+    style VECTOR_DB fill:#fce4ec,stroke:#ad1457,stroke-width:4px,color:#000
+    
+    style FLUTTER fill:#bbdefb,stroke:#1565c0,stroke-width:3px
+    style FASTAPI fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
+    style GPT4 fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    style EMBED fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    style STT fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    style FAISS fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+    style QUERY fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+    style SIM fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>Key System Components</h3>
+            <ul>
+                <li><strong>AI Models:</strong> GPT-4 Vision for image analysis, text-embedding-3-small for semantic vectors, ElevenLabs STT for audio transcription</li>
+                <li><strong>Vector Database:</strong> FAISS IndexFlatL2 with 1536-dimensional vectors for fast similarity search</li>
+                <li><strong>Processing:</strong> OpenCV for video, ffmpeg for audio, PIL for images</li>
+                <li><strong>Search:</strong> Semantic search with L2 distance calculation and similarity percentage conversion</li>
+                <li><strong>API:</strong> 5 main endpoints for images, video, and search operations</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Make showDetails available globally immediately
+        window.showDetails = function(componentKey) {
+            console.log('showDetails called with:', componentKey);
+            // Will be properly initialized later
+        };
+        
+        // Component details data
+        const componentDetails = {
+            'FLUTTER': {
+                title: 'Flutter Application',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Cross-platform mobile and web application built with Flutter, providing a Wolt-style food delivery interface.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Image upload and search functionality</li>
+                            <li>Video upload and analysis</li>
+                            <li>Restaurant listings with menu items</li>
+                            <li>Search results with similarity scores</li>
+                            <li>Responsive design for mobile and web</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Technology Stack</h3>
+                        <span class="badge badge-blue">Flutter</span>
+                        <span class="badge badge-blue">Dart</span>
+                        <span class="badge badge-blue">Provider (State Management)</span>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Location</h3>
+                        <p><code>copy_android/lib/</code></p>
+                    </div>
+                `
+            },
+            'FASTAPI': {
+                title: 'FastAPI Application',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Main backend server application built with FastAPI, running on port 8000. Handles all API requests and coordinates between different processing layers.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Async/await support for concurrent requests</li>
+                            <li>Automatic API documentation at /docs</li>
+                            <li>Lifespan management for FAISS index loading/saving</li>
+                            <li>Error handling and validation</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Location</h3>
+                        <p><code>main.py</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Initialization</h3>
+                        <div class="code-block">
+                            <pre>from fastapi import FastAPI
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: Load FAISS index
+    # Shutdown: Save FAISS index
+    yield
+
+app = FastAPI(title="Image Description API", lifespan=lifespan)</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'EP1': {
+                title: 'POST /describe-image',
+                content: `
+                    <div class="detail-section">
+                        <h3>Endpoint</h3>
+                        <p><code>POST /describe-image</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Purpose</h3>
+                        <p>Analyzes an uploaded image and returns a detailed text description using GPT-4 Vision API.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Request</h3>
+                        <div class="code-block">
+                            <pre>Content-Type: multipart/form-data
+file: [image file]</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Response</h3>
+                        <div class="code-block">
+                            <pre>{
+  "description": "Detailed food description..."
+}</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Implementation</h3>
+                        <div class="code-block">
+                            <pre>@app.post("/describe-image")
+async def describe_image(file: UploadFile = File(...)):
+    image_bytes = await file.read()
+    description = await get_image_description_from_bytes(image_bytes)
+    return {"description": description}</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'EP2': {
+                title: 'POST /add-image',
+                content: `
+                    <div class="detail-section">
+                        <h3>Endpoint</h3>
+                        <p><code>POST /add-image</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Purpose</h3>
+                        <p>Adds an image to the FAISS index using a 5-variation strategy. Generates 5 different descriptions and creates embeddings for each.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Request</h3>
+                        <div class="code-block">
+                            <pre>Content-Type: multipart/form-data
+file: [image file]
+image_path: [optional string]</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Response</h3>
+                        <div class="code-block">
+                            <pre>{
+  "success": true,
+  "message": "Image added to index with 5 descriptions",
+  "descriptions_count": 5,
+  "index_size": 1234
+}</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Process</h3>
+                        <ol>
+                            <li>Check if image already indexed</li>
+                            <li>Generate 5 different descriptions (variations 0-4)</li>
+                            <li>Create embeddings for each description</li>
+                            <li>Add all 5 embeddings to FAISS index</li>
+                            <li>Store metadata for each variation</li>
+                        </ol>
+                    </div>
+                `
+            },
+            'EP3': {
+                title: 'POST /search-images',
+                content: `
+                    <div class="detail-section">
+                        <h3>Endpoint</h3>
+                        <p><code>POST /search-images</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Purpose</h3>
+                        <p>Performs semantic search to find similar images in the FAISS index based on visual similarity.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Request</h3>
+                        <div class="code-block">
+                            <pre>Content-Type: multipart/form-data
+file: [query image file]</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Response</h3>
+                        <div class="code-block">
+                            <pre>{
+  "query_description": "Description of query image...",
+  "results": [
+    {
+      "rank": 1,
+      "image_path": "samples/1.jpg",
+      "description": "Matched image description...",
+      "similarity_percentage": 92.5,
+      "distance": 0.08
+    },
+    ...
+  ]
+}</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Search Algorithm</h3>
+                        <ol>
+                            <li>Generate description of query image (GPT-4 Vision)</li>
+                            <li>Create embedding vector (text-embedding-3-small)</li>
+                            <li>Search FAISS index using L2 distance</li>
+                            <li>Convert distances to similarity percentages</li>
+                            <li>Return top 5 matches</li>
+                        </ol>
+                    </div>
+                `
+            },
+            'EP4': {
+                title: 'POST /analyze-video',
+                content: `
+                    <div class="detail-section">
+                        <h3>Endpoint</h3>
+                        <p><code>POST /analyze-video</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Purpose</h3>
+                        <p>Performs multi-modal analysis of video: extracts and analyzes key frames, and transcribes audio.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Request</h3>
+                        <div class="code-block">
+                            <pre>Content-Type: multipart/form-data
+file: [video file - MP4]</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Response</h3>
+                        <div class="code-block">
+                            <pre>{
+  "video_filename": "burger.mp4",
+  "frame_analysis": [
+    {
+      "frame_index": 0,
+      "timestamp": 0.0,
+      "description": "Frame description..."
+    },
+    ...
+  ],
+  "audio_transcription": {
+    "text": "Transcribed text...",
+    "words": [...],
+    "language": "en"
+  },
+  "summary": {
+    "frames_analyzed": 5,
+    "has_audio_transcription": true,
+    "processing_time_seconds": 45.2
+  }
+}</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Processing Steps</h3>
+                        <ol>
+                            <li>Extract 5 evenly-spaced key frames (OpenCV)</li>
+                            <li>Analyze each frame with GPT-4 Vision</li>
+                            <li>Extract audio track (ffmpeg)</li>
+                            <li>Transcribe audio (ElevenLabs STT)</li>
+                            <li>Combine results into JSON response</li>
+                        </ol>
+                    </div>
+                `
+            },
+            'EP5': {
+                title: 'GET /index-stats',
+                content: `
+                    <div class="detail-section">
+                        <h3>Endpoint</h3>
+                        <p><code>GET /index-stats</code></p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Purpose</h3>
+                        <p>Returns statistics about the FAISS index.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Response</h3>
+                        <div class="code-block">
+                            <pre>{
+  "index_size": 5000,
+  "metadata_count": 5000,
+  "embedding_dimension": 1536
+}</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'PIL': {
+                title: 'PIL Image Processing',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Python Imaging Library (PIL/Pillow) for image decoding, encoding, and format conversion.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Functions</h3>
+                        <ul>
+                            <li>Decode image bytes from uploads</li>
+                            <li>Convert images to base64 for API calls</li>
+                            <li>Detect and handle different image formats (JPEG, PNG)</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Example</h3>
+                        <div class="code-block">
+                            <pre>from PIL import Image
+from io import BytesIO
+import base64
+
+# Decode image
+image = Image.open(BytesIO(image_bytes))
+
+# Convert to base64
+buffered = BytesIO()
+image.save(buffered, format=image.format)
+image_base64 = base64.b64encode(buffered.getvalue()).decode()</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'CV2': {
+                title: 'OpenCV Video Processing',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>OpenCV library for video frame extraction and processing.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Functions</h3>
+                        <ul>
+                            <li>Open video files and extract metadata (fps, frame count)</li>
+                            <li>Extract evenly-spaced key frames (default: 5 frames)</li>
+                            <li>Encode frames as JPEG for analysis</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Example</h3>
+                        <div class="code-block">
+                            <pre>import cv2
+
+cap = cv2.VideoCapture(video_path)
+total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+fps = cap.get(cv2.CAP_PROP_FPS)
+
+# Extract evenly-spaced frames
+step = max(1, total_frames // num_frames)
+frame_indices = [i * step for i in range(num_frames)]
+
+for frame_idx in frame_indices:
+    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
+    ret, frame = cap.read()
+    _, buffer = cv2.imencode('.jpg', frame)
+    frame_bytes = buffer.tobytes()</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'FFMPEG': {
+                title: 'ffmpeg Audio Extraction',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>ffmpeg command-line tool for extracting and converting audio from video files.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Functions</h3>
+                        <ul>
+                            <li>Extract audio track from video</li>
+                            <li>Convert to WAV format (PCM 16-bit, 44.1kHz, Stereo)</li>
+                            <li>Prepare audio for transcription API</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Command</h3>
+                        <div class="code-block">
+                            <pre>ffmpeg -i video.mp4 \\
+  -vn \\
+  -acodec pcm_s16le \\
+  -ar 44100 \\
+  -ac 2 \\
+  -y \\
+  audio.wav</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Example</h3>
+                        <div class="code-block">
+                            <pre>import subprocess
+
+cmd = [
+    "ffmpeg", "-i", video_path,
+    "-vn", "-acodec", "pcm_s16le",
+    "-ar", "44100", "-ac", "2", "-y",
+    audio_path
+]
+subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'GPT4': {
+                title: 'GPT-4 Vision (gpt-4o)',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>OpenAI's GPT-4 Vision model for analyzing images and generating detailed text descriptions.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Model Specifications</h3>
+                        <ul>
+                            <li><strong>Model:</strong> gpt-4o</li>
+                            <li><strong>Max Tokens:</strong> 1500</li>
+                            <li><strong>Temperature:</strong> 0 (deterministic)</li>
+                            <li><strong>Input:</strong> Image (base64) + Text prompt</li>
+                            <li><strong>Output:</strong> Detailed text description</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>API Call</h3>
+                        <div class="code-block">
+                            <pre>response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "system",
+            "content": system_prompt  # From prompt.txt
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "Analyze this image..."
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{image_base64}"
+                    }
+                }
+            ]
+        }
+    ],
+    max_tokens=1500,
+    temperature=0
+)
+
+description = response.choices[0].message.content</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Description Focus</h3>
+                        <ul>
+                            <li>Dish type and cuisine</li>
+                            <li>Complete ingredient inventory</li>
+                            <li>Preparation techniques</li>
+                            <li>Visual characteristics (colors, textures)</li>
+                            <li>Inferred aromas and flavors</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'EMBED': {
+                title: 'text-embedding-3-small',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>OpenAI's embedding model for converting text descriptions into semantic vector representations.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Model Specifications</h3>
+                        <ul>
+                            <li><strong>Model:</strong> text-embedding-3-small</li>
+                            <li><strong>Dimensions:</strong> 1536</li>
+                            <li><strong>Data Type:</strong> float32</li>
+                            <li><strong>Input:</strong> Text string (description)</li>
+                            <li><strong>Output:</strong> 1536-dimensional vector array</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>API Call</h3>
+                        <div class="code-block">
+                            <pre>response = client.embeddings.create(
+    model="text-embedding-3-small",
+    input=text_description
+)
+
+embedding = np.array(
+    response.data[0].embedding,
+    dtype=np.float32
+)  # Shape: (1536,)</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Usage</h3>
+                        <p>Embeddings are used for semantic similarity search. Similar texts produce similar vectors, enabling content-based matching.</p>
+                    </div>
+                `
+            },
+            'STT': {
+                title: 'ElevenLabs Speech-to-Text',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>ElevenLabs Speech-to-Text API for transcribing audio from video files.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Model Specifications</h3>
+                        <ul>
+                            <li><strong>Model:</strong> scribe_v1</li>
+                            <li><strong>Input:</strong> WAV audio file (PCM 16-bit, 44.1kHz, Stereo)</li>
+                            <li><strong>Output:</strong> Transcription text with word-level timestamps</li>
+                            <li><strong>Features:</strong> Language detection, confidence scores</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>API Call</h3>
+                        <div class="code-block">
+                            <pre>url = "https://api.elevenlabs.io/v1/speech-to-text"
+headers = {"xi-api-key": elevenlabs_api_key}
+
+with open(audio_path, "rb") as f:
+    files = {"file": ("audio.wav", f, "audio/wav")}
+    data = {"model_id": "scribe_v1"}
+    
+    response = requests.post(
+        url, headers=headers,
+        files=files, data=data
+    )
+
+transcription = response.json()</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Retry Logic</h3>
+                        <p>Implements exponential backoff for rate-limited requests (429 errors):</p>
+                        <ul>
+                            <li>Max retries: 3</li>
+                            <li>Base delay: 2 seconds</li>
+                            <li>Exponential: 2s, 4s, 8s</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'FAISS': {
+                title: 'FAISS IndexFlatL2',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Facebook AI Similarity Search (FAISS) vector database for fast similarity search using L2 distance.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Index Type</h3>
+                        <ul>
+                            <li><strong>Type:</strong> IndexFlatL2 (exact L2 distance)</li>
+                            <li><strong>Dimensions:</strong> 1536</li>
+                            <li><strong>Search Complexity:</strong> O(n) where n = number of vectors</li>
+                            <li><strong>Storage:</strong> Binary file (faiss_index.bin)</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Operations</h3>
+                        <div class="code-block">
+                            <pre>import faiss
+import numpy as np
+
+# Initialize index
+faiss_index = faiss.IndexFlatL2(1536)
+
+# Add vectors
+embedding = embedding.reshape(1, -1)  # Shape: (1, 1536)
+faiss_index.add(embedding)
+
+# Search
+query_vector = query_vector.reshape(1, -1)
+distances, indices = faiss_index.search(query_vector, k=5)</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Persistence</h3>
+                        <p>Index is loaded on startup and saved on shutdown:</p>
+                        <ul>
+                            <li>Load: <code>faiss.read_index("faiss_index.bin")</code></li>
+                            <li>Save: <code>faiss.write_index(faiss_index, "faiss_index.bin")</code></li>
+                        </ul>
+                    </div>
+                `
+            },
+            'METADATA': {
+                title: 'Metadata Storage',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Stores metadata for each indexed vector, including image paths, descriptions, and variation numbers.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Storage Format</h3>
+                        <ul>
+                            <li><strong>Format:</strong> Pickle (.pkl file)</li>
+                            <li><strong>File:</strong> faiss_metadata.pkl</li>
+                            <li><strong>Structure:</strong> List of dictionaries</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Metadata Schema</h3>
+                        <div class="code-block">
+                            <pre>{
+    "image_path": "samples/1.jpg",
+    "description": "Detailed food description...",
+    "description_variation": 1,  # 1-5
+    "image_index": 123  # Optional, parsed from filename
+}</pre>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Operations</h3>
+                        <div class="code-block">
+                            <pre># Load metadata
+with open("faiss_metadata.pkl", "rb") as f:
+    faiss_metadata = pickle.load(f)
+
+# Add metadata
+faiss_metadata.append({
+    "image_path": image_path,
+    "description": description,
+    "description_variation": variation_num
+})
+
+# Save metadata
+with open("faiss_metadata.pkl", "wb") as f:
+    pickle.dump(faiss_metadata, f)</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'QUERY': {
+                title: 'Query Processing',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Processes search queries by generating descriptions and embeddings from query images.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Process Flow</h3>
+                        <ol>
+                            <li>Receive query image bytes</li>
+                            <li>Generate description using GPT-4 Vision</li>
+                            <li>Create embedding vector using text-embedding-3-small</li>
+                            <li>Reshape vector for FAISS (1, 1536)</li>
+                            <li>Pass to FAISS search</li>
+                        </ol>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Example</h3>
+                        <div class="code-block">
+                            <pre># Generate description
+description = await get_image_description_from_bytes(image_bytes)
+
+# Create embedding
+query_embedding = await get_embedding(description)
+
+# Reshape for FAISS
+query_embedding = query_embedding.reshape(1, -1)
+
+# Search
+distances, indices = faiss_index.search(query_embedding, k=5)</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'SIM': {
+                title: 'Similarity Engine',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Converts L2 distances from FAISS search into similarity percentages and ranks results.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Similarity Calculation</h3>
+                        <p>Formula: <code>similarity = (1 / (1 + distance)) * 100</code></p>
+                        <ul>
+                            <li>distance = 0.1 → similarity = 90.91%</li>
+                            <li>distance = 0.5 → similarity = 66.67%</li>
+                            <li>distance = 1.0 → similarity = 50.00%</li>
+                            <li>distance = 2.0 → similarity = 33.33%</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Code Example</h3>
+                        <div class="code-block">
+                            <pre>results = []
+for i, (distance, idx) in enumerate(zip(distances[0], indices[0])):
+    if idx < len(faiss_metadata):
+        similarity = (1 / (1 + distance)) * 100
+        results.append({
+            "rank": i + 1,
+            "image_path": faiss_metadata[idx]["image_path"],
+            "description": faiss_metadata[idx]["description"],
+            "similarity_percentage": round(similarity, 2),
+            "distance": float(distance)
+        })
+
+# Sort by similarity (already sorted by FAISS)
+return {"query_description": description, "results": results}</pre>
+                        </div>
+                    </div>
+                `
+            },
+            'CLIENT': {
+                title: 'Client Layer',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>The frontend layer consisting of Flutter applications for mobile and web platforms.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Components</h3>
+                        <ul>
+                            <li><strong>Flutter Application:</strong> Cross-platform mobile and web app</li>
+                            <li><strong>UI Framework:</strong> Wolt-style design language</li>
+                            <li><strong>State Management:</strong> Provider pattern</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Image upload and search</li>
+                            <li>Video upload and analysis</li>
+                            <li>Restaurant listings</li>
+                            <li>Search results display</li>
+                            <li>Menu item browsing</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Location</h3>
+                        <p><code>copy_android/lib/</code></p>
+                    </div>
+                `
+            },
+            'API_LAYER': {
+                title: 'API Layer - FastAPI Server',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>RESTful API server built with FastAPI, running on port 8000. Handles all client requests and coordinates backend processing.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Endpoints</h3>
+                        <ul>
+                            <li><strong>POST /describe-image:</strong> Get AI description of uploaded image</li>
+                            <li><strong>POST /add-image:</strong> Add image to searchable index</li>
+                            <li><strong>POST /search-images:</strong> Find similar images using semantic search</li>
+                            <li><strong>POST /analyze-video:</strong> Complete video analysis (frames + audio)</li>
+                            <li><strong>GET /index-stats:</strong> Get FAISS index statistics</li>
+                            <li><strong>GET /index-list:</strong> List all indexed images</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Async/await for concurrent processing</li>
+                            <li>Automatic API documentation at /docs</li>
+                            <li>Lifespan management for resource initialization</li>
+                            <li>Error handling and validation</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Location</h3>
+                        <p><code>main.py</code></p>
+                    </div>
+                `
+            },
+            'PROCESSING': {
+                title: 'Processing Layer',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Low-level processing tools for handling different media types (images, video, audio).</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Components</h3>
+                        <ul>
+                            <li><strong>PIL Image:</strong> Image decoding, encoding, format conversion</li>
+                            <li><strong>OpenCV:</strong> Video frame extraction, frame encoding</li>
+                            <li><strong>ffmpeg:</strong> Audio extraction from video, format conversion</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Responsibilities</h3>
+                        <ul>
+                            <li>Convert raw bytes to processable formats</li>
+                            <li>Extract frames from video files</li>
+                            <li>Extract audio tracks</li>
+                            <li>Encode data for API transmission</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'AI_CORE': {
+                title: 'AI Processing Core',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Core AI/ML processing layer using OpenAI and ElevenLabs APIs for image analysis, embeddings, and speech-to-text.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>AI Models</h3>
+                        <ul>
+                            <li><strong>GPT-4 Vision (gpt-4o):</strong> Image to text description</li>
+                            <li><strong>text-embedding-3-small:</strong> Text to 1536-dim vector</li>
+                            <li><strong>ElevenLabs STT (scribe_v1):</strong> Audio to text transcription</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Processing Flow</h3>
+                        <ol>
+                            <li>Images → GPT-4 Vision → Text descriptions</li>
+                            <li>Text descriptions → Embeddings → Vector representations</li>
+                            <li>Audio → ElevenLabs STT → Transcribed text</li>
+                            <li>Transcribed text can feed back into GPT-4 for enhanced analysis</li>
+                        </ol>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Integration</h3>
+                        <p>All AI models are integrated via their respective APIs with proper error handling and retry logic.</p>
+                    </div>
+                `
+            },
+            'VECTOR_DB': {
+                title: 'Vector Database (FAISS)',
+                content: `
+                    <div class="detail-section">
+                        <h3>Overview</h3>
+                        <p>Vector database system using FAISS for fast similarity search over high-dimensional embeddings.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Components</h3>
+                        <ul>
+                            <li><strong>FAISS IndexFlatL2:</strong> Exact L2 distance search index</li>
+                            <li><strong>Metadata Storage:</strong> Pickle-based metadata storage</li>
+                            <li><strong>Query Processing:</strong> Query vector generation and search</li>
+                            <li><strong>Similarity Engine:</strong> Distance to similarity conversion</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Operations</h3>
+                        <ul>
+                            <li><strong>Indexing:</strong> Add vectors with metadata</li>
+                            <li><strong>Searching:</strong> Find similar vectors using L2 distance</li>
+                            <li><strong>Persistence:</strong> Load/save index on startup/shutdown</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Performance</h3>
+                        <ul>
+                            <li>Search complexity: O(n) where n = number of vectors</li>
+                            <li>Vector dimension: 1536</li>
+                            <li>Storage: Binary format for vectors, Pickle for metadata</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#667eea',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#764ba2',
+                lineColor: '#2c3e50',
+                secondaryColor: '#f8f9fa',
+                tertiaryColor: '#e8f5e9',
+                fontFamily: 'Segoe UI, sans-serif',
+                fontSize: '18px'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 35,
+                rankSpacing: 50,
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            securityLevel: 'loose',
+            maxTextSize: 50000
+        });
+
+        // After Mermaid renders, attach click handlers to all buttons
+        function attachButtonHandlers() {
+            const diagramContainer = document.querySelector('.mermaid');
+            if (!diagramContainer) {
+                setTimeout(attachButtonHandlers, 200);
+                return;
+            }
+            
+            // Find all buttons in the rendered diagram (they might be in foreignObject elements)
+            const buttons = diagramContainer.querySelectorAll('button.diagram-btn, button.layer-btn');
+            console.log(`Found ${buttons.length} buttons in diagram`);
+            
+            buttons.forEach(button => {
+                const componentKey = button.getAttribute('data-component');
+                if (componentKey) {
+                    // Remove any existing handlers to avoid duplicates
+                    const newButton = button.cloneNode(true);
+                    button.parentNode.replaceChild(newButton, button);
+                    
+                    // Add click handler
+                    newButton.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        console.log('Button clicked:', componentKey);
+                        if (window.showDetails) {
+                            window.showDetails(componentKey);
+                        }
+                    });
+                    
+                    // Ensure button is visible and clickable
+                    newButton.style.pointerEvents = 'auto';
+                    newButton.style.cursor = 'pointer';
+                }
+            });
+            
+            // Also check for buttons inside foreignObject (Mermaid's HTML rendering)
+            const foreignObjects = diagramContainer.querySelectorAll('foreignObject');
+            foreignObjects.forEach(fo => {
+                const btn = fo.querySelector('button');
+                if (btn) {
+                    const componentKey = btn.getAttribute('data-component');
+                    if (componentKey) {
+                        btn.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            console.log('ForeignObject button clicked:', componentKey);
+                            if (window.showDetails) {
+                                window.showDetails(componentKey);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        
+        // Try multiple times to catch Mermaid rendering
+        setTimeout(attachButtonHandlers, 1000);
+        setTimeout(attachButtonHandlers, 2000);
+        setTimeout(attachButtonHandlers, 3000);
+        
+        // Use MutationObserver to catch buttons as they're added
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) { // Element node
+                        // Check if it's a button or contains buttons
+                        if (node.tagName === 'BUTTON' && (node.classList.contains('diagram-btn') || node.classList.contains('layer-btn'))) {
+                            const componentKey = node.getAttribute('data-component');
+                            if (componentKey) {
+                                node.addEventListener('click', function(e) {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    console.log('Observed button clicked:', componentKey);
+                                    if (window.showDetails) {
+                                        window.showDetails(componentKey);
+                                    }
+                                });
+                            }
+                        }
+                        // Also check children
+                        const buttons = node.querySelectorAll && node.querySelectorAll('button.diagram-btn, button.layer-btn');
+                        if (buttons) {
+                            buttons.forEach(button => {
+                                const componentKey = button.getAttribute('data-component');
+                                if (componentKey && !button.hasAttribute('data-handler-attached')) {
+                                    button.setAttribute('data-handler-attached', 'true');
+                                    button.addEventListener('click', function(e) {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        console.log('Observed child button clicked:', componentKey);
+                                        if (window.showDetails) {
+                                            window.showDetails(componentKey);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Start observing
+        const mermaidContainer = document.querySelector('.mermaid');
+        if (mermaidContainer) {
+            observer.observe(mermaidContainer, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        // Modal functions - ensure they're defined before use
+        let modal, modalTitle, modalBody, closeBtn;
+        
+        function initModal() {
+            modal = document.getElementById('detailModal');
+            modalTitle = document.getElementById('modalTitle');
+            modalBody = document.getElementById('modalBody');
+            closeBtn = document.querySelector('.close');
+            
+            if (!modal || !modalTitle || !modalBody || !closeBtn) {
+                console.error('Modal elements not found!');
+                return false;
+            }
+            
+            closeBtn.onclick = closeModal;
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeModal();
+                }
+            };
+            
+            // Add keyboard support
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                    closeModal();
+                }
+            });
+            
+            return true;
+        }
+
+        // Make showDetails globally accessible
+        window.showDetails = function(componentKey) {
+            console.log('showDetails called with:', componentKey);
+            
+            if (!modal || !modalTitle || !modalBody) {
+                if (!initModal()) {
+                    console.error('Cannot show details - modal not initialized');
+                    return;
+                }
+            }
+            
+            const details = componentDetails[componentKey];
+            if (details) {
+                modalTitle.textContent = details.title;
+                modalBody.innerHTML = details.content;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                console.log('Modal displayed for:', componentKey);
+            } else {
+                console.warn('No details found for:', componentKey);
+                alert('Details not available for: ' + componentKey);
+            }
+        };
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Initialize modal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initModal();
+        });
+        
+        // Also try immediately
+        setTimeout(() => {
+            if (!modal) {
+                initModal();
+            }
+        }, 100);
+    </script>
+</body>
+</html>

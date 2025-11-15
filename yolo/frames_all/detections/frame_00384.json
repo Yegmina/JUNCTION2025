@@ -1,0 +1,54 @@
+{
+  "frame_number": 384,
+  "frame_filename": "frame_00384.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.7359,
+      "bbox": {
+        "x1": 1.2879761457443237,
+        "y1": 523.2027587890625,
+        "x2": 155.30931091308594,
+        "y2": 1020.2867431640625
+      },
+      "normalized": {
+        "center_x_ratio": 0.1359,
+        "center_y_ratio": 0.7537,
+        "area_ratio": 0.1298
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.5099,
+      "bbox": {
+        "x1": 331.2601623535156,
+        "y1": 562.9078369140625,
+        "x2": 576.0,
+        "y2": 1010.6557006835938
+      },
+      "normalized": {
+        "center_x_ratio": 0.7876,
+        "center_y_ratio": 0.7683,
+        "area_ratio": 0.1858
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.2546,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 143.4069366455078,
+        "x2": 572.1085815429688,
+        "y2": 982.287109375
+      },
+      "normalized": {
+        "center_x_ratio": 0.4966,
+        "center_y_ratio": 0.5497,
+        "area_ratio": 0.8137
+      }
+    }
+  ]
+}

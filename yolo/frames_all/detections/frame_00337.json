@@ -1,0 +1,38 @@
+{
+  "frame_number": 337,
+  "frame_filename": "frame_00337.jpg",
+  "detections": [
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.6605,
+      "bbox": {
+        "x1": 2.621337890625,
+        "y1": 306.6652526855469,
+        "x2": 565.2862548828125,
+        "y2": 983.3612670898438
+      },
+      "normalized": {
+        "center_x_ratio": 0.493,
+        "center_y_ratio": 0.6299,
+        "area_ratio": 0.6455
+      }
+    },
+    {
+      "class_id": 67,
+      "class_name": "cell phone",
+      "confidence": 0.5793,
+      "bbox": {
+        "x1": 0.4769287109375,
+        "y1": 569.2536010742188,
+        "x2": 193.3034210205078,
+        "y2": 766.4512939453125
+      },
+      "normalized": {
+        "center_x_ratio": 0.1682,
+        "center_y_ratio": 0.6522,
+        "area_ratio": 0.0645
+      }
+    }
+  ]
+}

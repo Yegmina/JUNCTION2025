@@ -1,0 +1,102 @@
+{
+  "frame_number": 172,
+  "frame_filename": "frame_00172.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.8426,
+      "bbox": {
+        "x1": 385.7969970703125,
+        "y1": 0.2981933653354645,
+        "x2": 576.0,
+        "y2": 128.25112915039062
+      },
+      "normalized": {
+        "center_x_ratio": 0.8349,
+        "center_y_ratio": 0.0628,
+        "area_ratio": 0.0413
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.8176,
+      "bbox": {
+        "x1": 14.115869522094727,
+        "y1": 303.8052673339844,
+        "x2": 437.04449462890625,
+        "y2": 664.2462158203125
+      },
+      "normalized": {
+        "center_x_ratio": 0.3916,
+        "center_y_ratio": 0.4727,
+        "area_ratio": 0.2585
+      }
+    },
+    {
+      "class_id": 41,
+      "class_name": "cup",
+      "confidence": 0.4392,
+      "bbox": {
+        "x1": 1.366125464439392,
+        "y1": 746.8548583984375,
+        "x2": 111.27921295166016,
+        "y2": 1023.5619506835938
+      },
+      "normalized": {
+        "center_x_ratio": 0.0978,
+        "center_y_ratio": 0.8645,
+        "area_ratio": 0.0516
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.4024,
+      "bbox": {
+        "x1": 1.1774414777755737,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 758.9164428710938
+      },
+      "normalized": {
+        "center_x_ratio": 0.501,
+        "center_y_ratio": 0.3706,
+        "area_ratio": 0.7396
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.3712,
+      "bbox": {
+        "x1": 1.513342261314392,
+        "y1": 747.7437744140625,
+        "x2": 111.48775482177734,
+        "y2": 1023.0009765625
+      },
+      "normalized": {
+        "center_x_ratio": 0.0981,
+        "center_y_ratio": 0.8646,
+        "area_ratio": 0.0513
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2651,
+      "bbox": {
+        "x1": 273.27008056640625,
+        "y1": 311.0602722167969,
+        "x2": 573.1021118164062,
+        "y2": 1022.9744262695312
+      },
+      "normalized": {
+        "center_x_ratio": 0.7347,
+        "center_y_ratio": 0.6514,
+        "area_ratio": 0.3619
+      }
+    }
+  ]
+}

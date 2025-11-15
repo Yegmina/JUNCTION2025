@@ -1,0 +1,86 @@
+{
+  "frame_number": 208,
+  "frame_filename": "frame_00208.jpg",
+  "detections": [
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.7855,
+      "bbox": {
+        "x1": 8.71176815032959,
+        "y1": 379.0728454589844,
+        "x2": 562.8428955078125,
+        "y2": 799.5902709960938
+      },
+      "normalized": {
+        "center_x_ratio": 0.4961,
+        "center_y_ratio": 0.5755,
+        "area_ratio": 0.3951
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.7626,
+      "bbox": {
+        "x1": 443.718505859375,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 130.04600524902344
+      },
+      "normalized": {
+        "center_x_ratio": 0.8852,
+        "center_y_ratio": 0.0635,
+        "area_ratio": 0.0292
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.3758,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 323.0470886230469,
+        "x2": 302.79290771484375,
+        "y2": 512.46533203125
+      },
+      "normalized": {
+        "center_x_ratio": 0.2628,
+        "center_y_ratio": 0.408,
+        "area_ratio": 0.0972
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3361,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 38.42910385131836,
+        "x2": 576.0,
+        "y2": 981.1834106445312
+      },
+      "normalized": {
+        "center_x_ratio": 0.5,
+        "center_y_ratio": 0.4979,
+        "area_ratio": 0.9207
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.2774,
+      "bbox": {
+        "x1": 351.6968688964844,
+        "y1": 413.17919921875,
+        "x2": 575.6324462890625,
+        "y2": 1023.3612670898438
+      },
+      "normalized": {
+        "center_x_ratio": 0.805,
+        "center_y_ratio": 0.7014,
+        "area_ratio": 0.2317
+      }
+    }
+  ]
+}

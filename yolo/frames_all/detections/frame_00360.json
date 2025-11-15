@@ -1,0 +1,22 @@
+{
+  "frame_number": 360,
+  "frame_filename": "frame_00360.jpg",
+  "detections": [
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3895,
+      "bbox": {
+        "x1": 2.7939453125,
+        "y1": 5.8408203125,
+        "x2": 576.0,
+        "y2": 869.5795288085938
+      },
+      "normalized": {
+        "center_x_ratio": 0.5024,
+        "center_y_ratio": 0.4275,
+        "area_ratio": 0.8394
+      }
+    }
+  ]
+}

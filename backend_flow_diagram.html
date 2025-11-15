@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Data Flow - AI Processing Pipeline</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Backend Data Flow Pipeline</h1>
+        <p class="subtitle">Complete AI Processing Workflow</p>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+flowchart LR
+    subgraph INPUT["INPUT"]
+        IMG["Image Upload<br/>JPEG/PNG Bytes"]
+        VID["Video Upload<br/>MP4 Bytes"]
+    end
+    
+    subgraph PREPROC["PREPROCESSING"]
+        PIL["PIL Image<br/>Decode Bytes"]
+        CV2["OpenCV<br/>VideoCapture"]
+        FFMPEG["ffmpeg<br/>Audio Extract"]
+    end
+    
+    subgraph AI_VISION["AI VISION"]
+        GPT4["GPT-4 Vision<br/>gpt-4o<br/>Image Analysis"]
+        DESC["Text Description<br/>1500 tokens max<br/>Food Details"]
+    end
+    
+    subgraph AI_EMBED["AI EMBEDDINGS"]
+        EMBED["text-embedding-3-small<br/>Semantic Encoding"]
+        VEC["1536-dim Vector<br/>float32<br/>Semantic Representation"]
+    end
+    
+    subgraph AI_STT["AI SPEECH-TO-TEXT"]
+        STT["ElevenLabs STT<br/>scribe_v1"]
+        TRANS["Transcription Text<br/>Word Timestamps<br/>Language Detection"]
+    end
+    
+    subgraph STORAGE["VECTOR DATABASE"]
+        FAISS["FAISS Index<br/>IndexFlatL2<br/>L2 Distance"]
+        META["Metadata<br/>Pickle Format<br/>Descriptions & Paths"]
+    end
+    
+    subgraph SEARCH["SIMILARITY SEARCH"]
+        QUERY["Query Vector"]
+        DIST["L2 Distance<br/>Calculation"]
+        SIM["Similarity %<br/>1 / 1+distance * 100"]
+        RESULTS["Top 5 Results<br/>Ranked by Similarity"]
+    end
+    
+    subgraph OUTPUT["OUTPUT"]
+        JSON["JSON Response<br/>Search Results<br/>Analysis Data"]
+    end
+    
+    IMG --> PIL
+    VID --> CV2
+    VID --> FFMPEG
+    
+    PIL --> GPT4
+    CV2 -->|5 Frames| GPT4
+    GPT4 --> DESC
+    
+    DESC --> EMBED
+    EMBED --> VEC
+    
+    FFMPEG -->|WAV Audio| STT
+    STT --> TRANS
+    
+    VEC --> FAISS
+    FAISS --> META
+    
+    VEC --> QUERY
+    QUERY --> DIST
+    DIST --> SIM
+    SIM --> RESULTS
+    
+    DESC --> JSON
+    TRANS --> JSON
+    RESULTS --> JSON
+    
+    style INPUT fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style PREPROC fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style AI_VISION fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style AI_EMBED fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style AI_STT fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style STORAGE fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style SEARCH fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style OUTPUT fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                fontSize: '18px'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 12,
+                nodeSpacing: 30,
+                rankSpacing: 60,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>
+

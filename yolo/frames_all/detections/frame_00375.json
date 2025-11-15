@@ -1,0 +1,38 @@
+{
+  "frame_number": 375,
+  "frame_filename": "frame_00375.jpg",
+  "detections": [
+    {
+      "class_id": 55,
+      "class_name": "cake",
+      "confidence": 0.5501,
+      "bbox": {
+        "x1": 49.15273666381836,
+        "y1": 330.83203125,
+        "x2": 506.2010192871094,
+        "y2": 739.5023803710938
+      },
+      "normalized": {
+        "center_x_ratio": 0.4821,
+        "center_y_ratio": 0.5226,
+        "area_ratio": 0.3167
+      }
+    },
+    {
+      "class_id": 0,
+      "class_name": "person",
+      "confidence": 0.4244,
+      "bbox": {
+        "x1": 495.72418212890625,
+        "y1": 405.31134033203125,
+        "x2": 575.1264038085938,
+        "y2": 712.1447143554688
+      },
+      "normalized": {
+        "center_x_ratio": 0.9296,
+        "center_y_ratio": 0.5456,
+        "area_ratio": 0.0413
+      }
+    }
+  ]
+}

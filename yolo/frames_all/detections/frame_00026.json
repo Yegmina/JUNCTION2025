@@ -1,0 +1,86 @@
+{
+  "frame_number": 26,
+  "frame_filename": "frame_00026.jpg",
+  "detections": [
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.8095,
+      "bbox": {
+        "x1": 385.6647644042969,
+        "y1": 0.2939697206020355,
+        "x2": 576.0,
+        "y2": 127.4992904663086
+      },
+      "normalized": {
+        "center_x_ratio": 0.8348,
+        "center_y_ratio": 0.0624,
+        "area_ratio": 0.041
+      }
+    },
+    {
+      "class_id": 48,
+      "class_name": "sandwich",
+      "confidence": 0.5984,
+      "bbox": {
+        "x1": 54.90542221069336,
+        "y1": 293.4211120605469,
+        "x2": 539.3844604492188,
+        "y2": 644.0629272460938
+      },
+      "normalized": {
+        "center_x_ratio": 0.5159,
+        "center_y_ratio": 0.4578,
+        "area_ratio": 0.288
+      }
+    },
+    {
+      "class_id": 60,
+      "class_name": "dining table",
+      "confidence": 0.3792,
+      "bbox": {
+        "x1": 0.0,
+        "y1": 0.0,
+        "x2": 576.0,
+        "y2": 746.3583374023438
+      },
+      "normalized": {
+        "center_x_ratio": 0.5,
+        "center_y_ratio": 0.3644,
+        "area_ratio": 0.7289
+      }
+    },
+    {
+      "class_id": 41,
+      "class_name": "cup",
+      "confidence": 0.3543,
+      "bbox": {
+        "x1": 1.067407250404358,
+        "y1": 748.6783447265625,
+        "x2": 111.16643524169922,
+        "y2": 1023.5675659179688
+      },
+      "normalized": {
+        "center_x_ratio": 0.0974,
+        "center_y_ratio": 0.8654,
+        "area_ratio": 0.0513
+      }
+    },
+    {
+      "class_id": 45,
+      "class_name": "bowl",
+      "confidence": 0.279,
+      "bbox": {
+        "x1": 1.5778687000274658,
+        "y1": 748.9873046875,
+        "x2": 110.4678726196289,
+        "y2": 1022.7611694335938
+      },
+      "normalized": {
+        "center_x_ratio": 0.0973,
+        "center_y_ratio": 0.8651,
+        "area_ratio": 0.0505
+      }
+    }
+  ]
+}
