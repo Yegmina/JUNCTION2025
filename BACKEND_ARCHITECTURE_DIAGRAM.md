@@ -329,7 +329,7 @@ distances, indices = faiss_index.search(query, k=5)
 
 ---
 
-## 🔄 Complete Request Flow: Image Search
+## Complete Request Flow: Image Search
 
 ```mermaid
 sequenceDiagram
@@ -426,7 +426,7 @@ flowchart TD
 
 ---
 
-## 🧪 AI Model Specifications
+## AI Model Specifications
 
 ### OpenAI GPT-4 Vision (gpt-4o)
 ```
