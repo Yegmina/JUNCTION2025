@@ -11,9 +11,9 @@
 - **Bold headings** - improved hierarchy
 - **Optimized layout** - perfect for presentations
 
-### 📁 Файлы Диаграмм
+### Diagram Files
 
-1. **`complete_system_diagram.html`** ⭐ **ГЛАВНАЯ ДИАГРАММА**
+1. **`complete_system_diagram.html`** **MAIN DIAGRAM**
    - Полная архитектура всей системы
    - Все компоненты в одном месте
    - Идеально для презентации
@@ -97,13 +97,13 @@ mmdc -i backend_diagram.html -o backend_diagram.svg
 
 ## 📋 Цветовая Легенда
 
-- 🔵 **Синий** - Клиент и API слой
-- 🟢 **Зеленый** - AI модели (GPT-4, Embeddings, STT)
-- 🟣 **Фиолетовый** - Обработка данных
-- 🟠 **Оранжевый** - Инструменты обработки
-- 🔴 **Розовый** - Хранилище данных (FAISS)
+- **Blue** - Client and API layer
+- **Green** - AI models (GPT-4, Embeddings, STT)
+- **Purple** - Data processing
+- **Orange** - Processing tools
+- **Pink** - Data storage (FAISS)
 
-## 🔧 Настройка
+## Configuration
 
 Вы можете изменить стили в HTML файлах:
 - Цвета фона в `<style>` секции
