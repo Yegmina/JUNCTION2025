@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complete System Architecture - AI Food Discovery</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa-S5nm0q_Bar0t-4_CZov-I.js"></script>
+    <script>
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+        plausible.init()
+    </script>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,14 +21,16 @@
             padding: 20px;
             min-height: 100vh;
         }
+
         .container {
             max-width: 1800px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
+
         h1 {
             text-align: center;
             color: #2c3e50;
@@ -30,12 +40,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .subtitle {
             text-align: center;
             color: #7f8c8d;
             margin-bottom: 40px;
             font-size: 1.3em;
         }
+
         .diagram-container {
             background: #f8f9fa;
             border-radius: 15px;
@@ -43,12 +55,13 @@
             margin: 20px 0;
             overflow-x: auto;
         }
+
         .mermaid {
             background: white;
             border-radius: 10px;
             padding: 20px;
         }
-        
+
         /* Style for buttons inside diagram nodes */
         .diagram-btn {
             width: 100%;
@@ -65,22 +78,22 @@
             display: block;
             box-sizing: border-box;
         }
-        
+
         .diagram-btn:hover {
             background: rgba(102, 126, 234, 0.1);
             transform: scale(1.02);
         }
-        
+
         .diagram-btn:active {
             transform: scale(0.98);
         }
-        
+
         .diagram-btn b {
             font-weight: bold;
             display: block;
             margin-bottom: 4px;
         }
-        
+
         /* Style for layer/subgraph buttons */
         .layer-btn {
             background: transparent;
@@ -92,11 +105,12 @@
             color: #000;
             transition: all 0.2s;
         }
-        
+
         .layer-btn:hover {
             background: rgba(102, 126, 234, 0.15);
             border-radius: 5px;
         }
+
         .info-box {
             margin-top: 30px;
             padding: 25px;
@@ -104,21 +118,24 @@
             border-radius: 15px;
             border-left: 5px solid #667eea;
         }
+
         .info-box h3 {
             color: #2c3e50;
             margin-top: 0;
         }
+
         .info-box ul {
             color: #555;
             line-height: 1.8;
         }
+
         .hint {
             text-align: center;
             color: #7f8c8d;
             font-style: italic;
             margin-top: 15px;
         }
-        
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -128,15 +145,21 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
             overflow-y: auto;
             animation: fadeIn 0.3s;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .modal-content {
             background-color: white;
             margin: 50px auto;
@@ -144,21 +167,23 @@
             border-radius: 15px;
             width: 90%;
             max-width: 1200px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
             animation: slideDown 0.3s;
         }
-        
+
         @keyframes slideDown {
             from {
                 transform: translateY(-50px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
+
         .close {
             color: #aaa;
             float: right;
@@ -169,21 +194,26 @@
             right: 20px;
             top: 20px;
         }
+
         .close:hover {
             color: #000;
         }
+
         .modal-header {
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid #eee;
         }
+
         .modal-header h2 {
             margin: 0;
             color: #2c3e50;
         }
+
         .modal-body {
             line-height: 1.8;
         }
+
         .code-block {
             background: #f4f4f4;
             border-left: 4px solid #667eea;
@@ -192,25 +222,31 @@
             border-radius: 5px;
             overflow-x: auto;
         }
+
         .code-block pre {
             margin: 0;
             font-family: 'Courier New', monospace;
             font-size: 14px;
         }
+
         .detail-section {
             margin: 20px 0;
         }
+
         .detail-section h3 {
             color: #667eea;
             margin-top: 0;
         }
+
         .detail-section ul {
             margin: 10px 0;
             padding-left: 20px;
         }
+
         .detail-section li {
             margin: 8px 0;
         }
+
         .badge {
             display: inline-block;
             padding: 4px 12px;
@@ -219,105 +255,143 @@
             font-weight: bold;
             margin: 5px 5px 5px 0;
         }
-        .badge-blue { background: #e3f2fd; color: #1565c0; }
-        .badge-green { background: #e8f5e9; color: #2e7d32; }
-        .badge-purple { background: #f3e5f5; color: #6a1b9a; }
-        .badge-orange { background: #fff3e0; color: #ef6c00; }
-        .badge-pink { background: #fce4ec; color: #ad1457; }
+
+        .badge-blue {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge-green {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-purple {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
+        .badge-orange {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .badge-pink {
+            background: #fce4ec;
+            color: #ad1457;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>AI-Powered Food Discovery System</h1>
         <p class="subtitle">Complete Backend Architecture with Deep AI Integration</p>
         <p class="hint">Click on any component to see detailed information</p>
         <div style="text-align: center; margin: 10px 0;">
-           <!-- <button onclick="showDetails('FASTAPI')" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Test Modal (Click FastAPI)</button>-->
-             <span style="margin: 0 10px; color: #7f8c8d;">|</span>
+            <!-- <button onclick="showDetails('FASTAPI')" style="padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Test Modal (Click FastAPI)</button>-->
+            <span style="margin: 0 10px; color: #7f8c8d;">|</span>
             <span style="color: #7f8c8d; font-size: 0.9em;">All boxes below are clickable buttons</span>
         </div>
-        
+
         <div class="diagram-container">
             <div class="mermaid" id="main-diagram">
-graph TB
-    subgraph CLIENT["<button class='layer-btn' data-component='CLIENT'>CLIENT LAYER</button>"]
-        FLUTTER["<button class='diagram-btn' data-component='FLUTTER'><b>Flutter Application</b><br/>Mobile & Web | Wolt-style UI</button>"]
-    end
-    
-    subgraph API_LAYER["<button class='layer-btn' data-component='API_LAYER'>API LAYER - FastAPI Server (Port 8000)</button>"]
-        FASTAPI["<button class='diagram-btn' data-component='FASTAPI'><b>FastAPI Application</b><br/>main.py</button>"]
-        EP1["<button class='diagram-btn' data-component='EP1'>/describe-image<br/>Image Description</button>"]
-        EP2["<button class='diagram-btn' data-component='EP2'>/add-image<br/>Index Image</button>"]
-        EP3["<button class='diagram-btn' data-component='EP3'>/search-images<br/>Semantic Search</button>"]
-        EP4["<button class='diagram-btn' data-component='EP4'>/analyze-video<br/>Video Analysis</button>"]
-        EP5["<button class='diagram-btn' data-component='EP5'>/index-stats<br/>Statistics</button>"]
-    end
-    
-    subgraph PROCESSING["<button class='layer-btn' data-component='PROCESSING'>PROCESSING LAYER</button>"]
-        PIL["<button class='diagram-btn' data-component='PIL'><b>PIL Image</b><br/>Decode • Base64 • Format</button>"]
-        CV2["<button class='diagram-btn' data-component='CV2'><b>OpenCV</b><br/>Frame Extract • 5 Frames • JPEG</button>"]
-        FFMPEG["<button class='diagram-btn' data-component='FFMPEG'><b>ffmpeg</b><br/>Audio Extract • WAV • PCM 16-bit</button>"]
-    end
-    
-    subgraph AI_CORE["<button class='layer-btn' data-component='AI_CORE'>AI PROCESSING CORE</button>"]
-        GPT4["<button class='diagram-btn' data-component='GPT4'><b>GPT-4 Vision (gpt-4o)</b><br/>Image → Text Description<br/>Max 1500 tokens • Temperature: 0</button>"]
-        EMBED["<button class='diagram-btn' data-component='EMBED'><b>text-embedding-3-small</b><br/>Text → 1536-dim Vector<br/>Semantic Encoding • float32</button>"]
-        STT["<button class='diagram-btn' data-component='STT'><b>ElevenLabs STT (scribe_v1)</b><br/>Audio → Text Transcription<br/>Word Timestamps • Language Detection</button>"]
-    end
-    
-    subgraph VECTOR_DB["<button class='layer-btn' data-component='VECTOR_DB'>VECTOR DATABASE (FAISS)</button>"]
-        FAISS["<button class='diagram-btn' data-component='FAISS'><b>FAISS IndexFlatL2</b><br/>L2 Distance • 1536 Dimensions • O(n)</button>"]
-        METADATA["<button class='diagram-btn' data-component='METADATA'><b>Metadata Storage</b><br/>Pickle • Paths • Descriptions</button>"]
-        QUERY["<button class='diagram-btn' data-component='QUERY'><b>Query Processing</b><br/>Description • Embedding • Search</button>"]
-        SIM["<button class='diagram-btn' data-component='SIM'><b>Similarity Engine</b><br/>L2 Distance → % • Ranking</button>"]
-    end
-    
-    FLUTTER -->|HTTP POST| FASTAPI
-    FASTAPI --> EP1 & EP2 & EP3 & EP4 & EP5
-    
-    EP1 & EP2 & EP3 --> PIL
-    EP4 --> CV2 & FFMPEG
-    
-    PIL & CV2 --> GPT4
-    FFMPEG --> STT
-    STT -.->|Text Output| GPT4
-    
-    GPT4 --> EMBED
-    EMBED --> FAISS
-    FAISS <--> METADATA
-    
-    EP2 --> FAISS
-    EP3 --> QUERY
-    QUERY --> FAISS
-    FAISS --> SIM
-    SIM --> EP3
-    
-    EP1 & EP3 & EP4 -->|JSON Response| FLUTTER
-    
-    style CLIENT fill:#e3f2fd,stroke:#1565c0,stroke-width:4px,color:#000
-    style API_LAYER fill:#f3e5f5,stroke:#6a1b9a,stroke-width:4px,color:#000
-    style PROCESSING fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
-    style AI_CORE fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
-    style VECTOR_DB fill:#fce4ec,stroke:#ad1457,stroke-width:4px,color:#000
-    
-    style FLUTTER fill:#bbdefb,stroke:#1565c0,stroke-width:3px
-    style FASTAPI fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
-    style GPT4 fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
-    style EMBED fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
-    style STT fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
-    style FAISS fill:#f48fb1,stroke:#ad1457,stroke-width:3px
-    style QUERY fill:#f48fb1,stroke:#ad1457,stroke-width:3px
-    style SIM fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+                graph TB
+                subgraph CLIENT["<button class='layer-btn' data-component='CLIENT'>CLIENT LAYER</button>"]
+                FLUTTER["<button class='diagram-btn' data-component='FLUTTER'><b>Flutter Application</b><br />Mobile &
+                    Web | Wolt-style UI</button>"]
+                end
+
+                subgraph API_LAYER["<button class='layer-btn' data-component='API_LAYER'>API LAYER - FastAPI Server
+                    (Port 8000)</button>"]
+                FASTAPI["<button class='diagram-btn' data-component='FASTAPI'><b>FastAPI
+                        Application</b><br />main.py</button>"]
+                EP1["<button class='diagram-btn' data-component='EP1'>/describe-image<br />Image Description</button>"]
+                EP2["<button class='diagram-btn' data-component='EP2'>/add-image<br />Index Image</button>"]
+                EP3["<button class='diagram-btn' data-component='EP3'>/search-images<br />Semantic Search</button>"]
+                EP4["<button class='diagram-btn' data-component='EP4'>/analyze-video<br />Video Analysis</button>"]
+                EP5["<button class='diagram-btn' data-component='EP5'>/index-stats<br />Statistics</button>"]
+                end
+
+                subgraph PROCESSING["<button class='layer-btn' data-component='PROCESSING'>PROCESSING LAYER</button>"]
+                PIL["<button class='diagram-btn' data-component='PIL'><b>PIL Image</b><br />Decode • Base64 •
+                    Format</button>"]
+                CV2["<button class='diagram-btn' data-component='CV2'><b>OpenCV</b><br />Frame Extract • 5 Frames •
+                    JPEG</button>"]
+                FFMPEG["<button class='diagram-btn' data-component='FFMPEG'><b>ffmpeg</b><br />Audio Extract • WAV • PCM
+                    16-bit</button>"]
+                end
+
+                subgraph AI_CORE["<button class='layer-btn' data-component='AI_CORE'>AI PROCESSING CORE</button>"]
+                GPT4["<button class='diagram-btn' data-component='GPT4'><b>GPT-4 Vision (gpt-4o)</b><br />Image → Text
+                    Description<br />Max 1500 tokens • Temperature: 0</button>"]
+                EMBED["<button class='diagram-btn' data-component='EMBED'><b>text-embedding-3-small</b><br />Text →
+                    1536-dim Vector<br />Semantic Encoding • float32</button>"]
+                STT["<button class='diagram-btn' data-component='STT'><b>ElevenLabs STT (scribe_v1)</b><br />Audio →
+                    Text Transcription<br />Word Timestamps • Language Detection</button>"]
+                end
+
+                subgraph VECTOR_DB["<button class='layer-btn' data-component='VECTOR_DB'>VECTOR DATABASE
+                    (FAISS)</button>"]
+                FAISS["<button class='diagram-btn' data-component='FAISS'><b>FAISS IndexFlatL2</b><br />L2 Distance •
+                    1536 Dimensions • O(n)</button>"]
+                METADATA["<button class='diagram-btn' data-component='METADATA'><b>Metadata Storage</b><br />Pickle •
+                    Paths • Descriptions</button>"]
+                QUERY["<button class='diagram-btn' data-component='QUERY'><b>Query Processing</b><br />Description •
+                    Embedding • Search</button>"]
+                SIM["<button class='diagram-btn' data-component='SIM'><b>Similarity Engine</b><br />L2 Distance → % •
+                    Ranking</button>"]
+                end
+
+                FLUTTER -->|HTTP POST| FASTAPI
+                FASTAPI --> EP1 & EP2 & EP3 & EP4 & EP5
+
+                EP1 & EP2 & EP3 --> PIL
+                EP4 --> CV2 & FFMPEG
+
+                PIL & CV2 --> GPT4
+                FFMPEG --> STT
+                STT -.->|Text Output| GPT4
+
+                GPT4 --> EMBED
+                EMBED --> FAISS
+                FAISS <--> METADATA
+
+                    EP2 --> FAISS
+                    EP3 --> QUERY
+                    QUERY --> FAISS
+                    FAISS --> SIM
+                    SIM --> EP3
+
+                    EP1 & EP3 & EP4 -->|JSON Response| FLUTTER
+
+                    style CLIENT fill:#e3f2fd,stroke:#1565c0,stroke-width:4px,color:#000
+                    style API_LAYER fill:#f3e5f5,stroke:#6a1b9a,stroke-width:4px,color:#000
+                    style PROCESSING fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+                    style AI_CORE fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
+                    style VECTOR_DB fill:#fce4ec,stroke:#ad1457,stroke-width:4px,color:#000
+
+                    style FLUTTER fill:#bbdefb,stroke:#1565c0,stroke-width:3px
+                    style FASTAPI fill:#e1bee7,stroke:#6a1b9a,stroke-width:3px
+                    style GPT4 fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+                    style EMBED fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+                    style STT fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+                    style FAISS fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+                    style QUERY fill:#f48fb1,stroke:#ad1457,stroke-width:3px
+                    style SIM fill:#f48fb1,stroke:#ad1457,stroke-width:3px
             </div>
         </div>
-        
+
         <div class="info-box">
             <h3>Key System Components</h3>
             <ul>
-                <li><strong>AI Models:</strong> GPT-4 Vision for image analysis, text-embedding-3-small for semantic vectors, ElevenLabs STT for audio transcription</li>
-                <li><strong>Vector Database:</strong> FAISS IndexFlatL2 with 1536-dimensional vectors for fast similarity search</li>
+                <li><strong>AI Models:</strong> GPT-4 Vision for image analysis, text-embedding-3-small for semantic
+                    vectors, ElevenLabs STT for audio transcription</li>
+                <li><strong>Vector Database:</strong> FAISS IndexFlatL2 with 1536-dimensional vectors for fast
+                    similarity search</li>
                 <li><strong>Processing:</strong> OpenCV for video, ffmpeg for audio, PIL for images</li>
-                <li><strong>Search:</strong> Semantic search with L2 distance calculation and similarity percentage conversion</li>
+                <li><strong>Search:</strong> Semantic search with L2 distance calculation and similarity percentage
+                    conversion</li>
                 <li><strong>API:</strong> 5 main endpoints for images, video, and search operations</li>
             </ul>
         </div>
@@ -336,11 +410,11 @@ graph TB
 
     <script>
         // Make showDetails available globally immediately
-        window.showDetails = function(componentKey) {
+        window.showDetails = function (componentKey) {
             console.log('showDetails called with:', componentKey);
             // Will be properly initialized later
         };
-        
+
         // Component details data
         const componentDetails = {
             'FLUTTER': {
@@ -1194,7 +1268,7 @@ return {"query_description": description, "results": results}</pre>
         };
 
         // Initialize Mermaid
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
             theme: 'default',
             themeVariables: {
@@ -1226,20 +1300,20 @@ return {"query_description": description, "results": results}</pre>
                 setTimeout(attachButtonHandlers, 200);
                 return;
             }
-            
+
             // Find all buttons in the rendered diagram (they might be in foreignObject elements)
             const buttons = diagramContainer.querySelectorAll('button.diagram-btn, button.layer-btn');
             console.log(`Found ${buttons.length} buttons in diagram`);
-            
+
             buttons.forEach(button => {
                 const componentKey = button.getAttribute('data-component');
                 if (componentKey) {
                     // Remove any existing handlers to avoid duplicates
                     const newButton = button.cloneNode(true);
                     button.parentNode.replaceChild(newButton, button);
-                    
+
                     // Add click handler
-                    newButton.addEventListener('click', function(e) {
+                    newButton.addEventListener('click', function (e) {
                         e.stopPropagation();
                         e.preventDefault();
                         console.log('Button clicked:', componentKey);
@@ -1247,13 +1321,13 @@ return {"query_description": description, "results": results}</pre>
                             window.showDetails(componentKey);
                         }
                     });
-                    
+
                     // Ensure button is visible and clickable
                     newButton.style.pointerEvents = 'auto';
                     newButton.style.cursor = 'pointer';
                 }
             });
-            
+
             // Also check for buttons inside foreignObject (Mermaid's HTML rendering)
             const foreignObjects = diagramContainer.querySelectorAll('foreignObject');
             foreignObjects.forEach(fo => {
@@ -1261,7 +1335,7 @@ return {"query_description": description, "results": results}</pre>
                 if (btn) {
                     const componentKey = btn.getAttribute('data-component');
                     if (componentKey) {
-                        btn.addEventListener('click', function(e) {
+                        btn.addEventListener('click', function (e) {
                             e.stopPropagation();
                             e.preventDefault();
                             console.log('ForeignObject button clicked:', componentKey);
@@ -1273,22 +1347,22 @@ return {"query_description": description, "results": results}</pre>
                 }
             });
         }
-        
+
         // Try multiple times to catch Mermaid rendering
         setTimeout(attachButtonHandlers, 1000);
         setTimeout(attachButtonHandlers, 2000);
         setTimeout(attachButtonHandlers, 3000);
-        
+
         // Use MutationObserver to catch buttons as they're added
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                mutation.addedNodes.forEach(function(node) {
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                mutation.addedNodes.forEach(function (node) {
                     if (node.nodeType === 1) { // Element node
                         // Check if it's a button or contains buttons
                         if (node.tagName === 'BUTTON' && (node.classList.contains('diagram-btn') || node.classList.contains('layer-btn'))) {
                             const componentKey = node.getAttribute('data-component');
                             if (componentKey) {
-                                node.addEventListener('click', function(e) {
+                                node.addEventListener('click', function (e) {
                                     e.stopPropagation();
                                     e.preventDefault();
                                     console.log('Observed button clicked:', componentKey);
@@ -1305,7 +1379,7 @@ return {"query_description": description, "results": results}</pre>
                                 const componentKey = button.getAttribute('data-component');
                                 if (componentKey && !button.hasAttribute('data-handler-attached')) {
                                     button.setAttribute('data-handler-attached', 'true');
-                                    button.addEventListener('click', function(e) {
+                                    button.addEventListener('click', function (e) {
                                         e.stopPropagation();
                                         e.preventDefault();
                                         console.log('Observed child button clicked:', componentKey);
@@ -1320,7 +1394,7 @@ return {"query_description": description, "results": results}</pre>
                 });
             });
         });
-        
+
         // Start observing
         const mermaidContainer = document.querySelector('.mermaid');
         if (mermaidContainer) {
@@ -1332,46 +1406,46 @@ return {"query_description": description, "results": results}</pre>
 
         // Modal functions - ensure they're defined before use
         let modal, modalTitle, modalBody, closeBtn;
-        
+
         function initModal() {
             modal = document.getElementById('detailModal');
             modalTitle = document.getElementById('modalTitle');
             modalBody = document.getElementById('modalBody');
             closeBtn = document.querySelector('.close');
-            
+
             if (!modal || !modalTitle || !modalBody || !closeBtn) {
                 console.error('Modal elements not found!');
                 return false;
             }
-            
+
             closeBtn.onclick = closeModal;
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     closeModal();
                 }
             };
-            
+
             // Add keyboard support
-            document.addEventListener('keydown', function(event) {
+            document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape' && modal && modal.style.display === 'block') {
                     closeModal();
                 }
             });
-            
+
             return true;
         }
 
         // Make showDetails globally accessible
-        window.showDetails = function(componentKey) {
+        window.showDetails = function (componentKey) {
             console.log('showDetails called with:', componentKey);
-            
+
             if (!modal || !modalTitle || !modalBody) {
                 if (!initModal()) {
                     console.error('Cannot show details - modal not initialized');
                     return;
                 }
             }
-            
+
             const details = componentDetails[componentKey];
             if (details) {
                 modalTitle.textContent = details.title;
@@ -1391,10 +1465,10 @@ return {"query_description": description, "results": results}</pre>
         }
 
         // Initialize modal on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initModal();
         });
-        
+
         // Also try immediately
         setTimeout(() => {
             if (!modal) {
@@ -1403,4 +1477,5 @@ return {"query_description": description, "results": results}</pre>
         }, 100);
     </script>
 </body>
+
 </html>

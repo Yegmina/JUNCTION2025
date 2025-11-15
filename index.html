@@ -4,6 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa-S5nm0q_Bar0t-4_CZov-I.js"></script>
+    <script>
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+        plausible.init()
+    </script>
+
     <title>Video Food Matches</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -125,21 +132,73 @@
             background-color: #ffe5e5;
         }
 
+        .nerd-alert {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .nerd-alert img {
+            height: 100px;
+            width: auto;
+        }
+
+        .nerd-alert-text {
+            color: rgb(178, 22, 22);
+            font-size: 2em;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        a {
+            color: inherit;
+            font-style: italic;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: inherit;
+        }
+
         @media (max-width: 768px) {
             body {
                 margin: 0;
                 padding: 10px;
+            }
+
+            .nerd-alert {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nerd-alert-text {
+                font-size: 1.5em;
             }
         }
     </style>
 </head>
 
 <body>
+    <div class="nerd-alert">
+        <img src="nerd.png" alt="Nerd">
+        <div class="nerd-alert-text">NERD ALERT. READ THIS ONLY IF YOU ARE A NERD. OTHERWISE GO <a
+                href="https://youtube.com">SEE THE DEMO</a>. WE WARNED
+            YOU</div>
+    </div>
+
     <h1>Video Food Matches</h1>
 
     <p>
         Hi, this webpage is intended for the people that wanna see the numbers and know how the inners work. This is all
         the nasty technical shit.
+    </p>
+
+    <p>
+        So yeah, this is basically the backend stats for the food discovery system. We feed it a video of food split
+        into i-frames and it scrapes the database looking for similar looking, smelling, tasting foods and everything
+        like that. ML this and ML that. For the prototype we use a in-memory FAISS index, some ffmpeg for video
+        processing, elevenlabs for audio detection, YOLO for object persistence and so on.
     </p>
 
     <p>
