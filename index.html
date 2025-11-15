@@ -15,7 +15,8 @@
             font-family: "Space Mono", monospace;
             font-weight: 400;
             font-style: normal;
-            margin: 20px 300px;
+            font-size: 1.2rem;
+            margin: 200px 300px;
         }
 
         h1 {
@@ -123,6 +124,13 @@
         .info-area.pink-tint {
             background-color: #ffe5e5;
         }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 0;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -155,17 +163,20 @@
         specific detection
     </p>
 
-    <div style="text-align: right;">
+    <div style="text-align: center;">
         - Artur
     </div>
 
-    <p>
-        Also there a big diagram abt how exactly the entire architecture works in more detail. <a
-            href="complete_system_diagram.html">The
-            link is here.</a>
-    </p>
-    <div style="text-align: right;">
-        - Yehor
+    <div style="margin: 5rem 0;">
+        <p>
+            Also there a big diagram abt how exactly the entire architecture works in more detail. <a
+                href="complete_system_diagram.html">The
+                link is here.</a> Don't worry if you find it overwhelming, it's just a big diagram. You can click on any
+            component to see detailed information. Don't forget to check it out if you care about stuff like that.
+        </p>
+        <div style="text-align: center;">
+            - Yehor
+        </div>
     </div>
 
     <div class="info-area" id="infoArea">Hover over a <b>match cell</b> to see details</div>
