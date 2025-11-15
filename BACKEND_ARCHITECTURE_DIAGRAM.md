@@ -1,6 +1,6 @@
 # Backend Architecture: Technical Deep Dive
 
-## 🧠 AI-Powered Backend System Architecture
+## AI-Powered Backend System Architecture
 
 ```mermaid
 graph TB
@@ -60,7 +60,7 @@ graph TB
 
 ---
 
-## 🔬 Detailed AI Processing Pipelines
+## Detailed AI Processing Pipelines
 
 ### 1. Image Description Generation Pipeline
 
@@ -269,7 +269,7 @@ for attempt in range(max_retries + 1):
 
 ---
 
-## 🗄️ FAISS Vector Database Architecture
+## FAISS Vector Database Architecture
 
 ```mermaid
 graph TB
@@ -369,7 +369,7 @@ sequenceDiagram
 
 ---
 
-## 🎬 Video Analysis: Technical Deep Dive
+## Video Analysis: Technical Deep Dive
 
 ```mermaid
 flowchart TD
@@ -468,7 +468,7 @@ Output:
 
 ---
 
-## 📊 Performance Characteristics
+## Performance Characteristics
 
 ### Latency Breakdown (Typical)
 
@@ -498,7 +498,7 @@ Output:
 
 ---
 
-## 🔐 Error Handling & Resilience
+## Error Handling & Resilience
 
 ```mermaid
 flowchart TD
@@ -531,7 +531,7 @@ flowchart TD
 
 ---
 
-## 🗂️ Data Structures
+## Data Structures
 
 ### FAISS Metadata Entry
 ```python
@@ -571,7 +571,7 @@ flowchart TD
 
 ---
 
-## 🔧 Configuration & Environment
+## Configuration & Environment
 
 ```python
 # Environment Variables

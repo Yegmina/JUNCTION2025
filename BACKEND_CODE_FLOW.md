@@ -666,7 +666,7 @@ sequenceDiagram
 
 ---
 
-## 📊 AI API Call Summary
+## AI API Call Summary
 
 | Function | OpenAI Vision | OpenAI Embeddings | ElevenLabs STT | Total Calls |
 |----------|---------------|-------------------|----------------|-------------|
@@ -682,7 +682,7 @@ sequenceDiagram
 
 ---
 
-## 🛡️ Error Handling Flow
+## Error Handling Flow
 
 ```mermaid
 flowchart TD
@@ -713,7 +713,7 @@ flowchart TD
 
 ---
 
-## 🔧 Configuration & Constants
+## Configuration & Constants
 
 ```python
 # AI Model Configuration

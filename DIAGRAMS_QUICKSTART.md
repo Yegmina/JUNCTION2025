@@ -1,16 +1,16 @@
-# 🚀 Быстрый Старт: Диаграммы Backend
+# Quick Start: Backend Diagrams
 
-## 📂 Файлы
+## Files
 
-5 готовых HTML-диаграмм для презентации:
+5 ready HTML diagrams for presentation:
 
-1. ⭐ **`complete_system_diagram.html`** - Главная (начните с неё!)
-2. 📊 **`backend_diagram.html`** - Детальная архитектура
-3. 🔄 **`backend_flow_diagram.html`** - Поток данных
-4. 🎬 **`video_analysis_diagram.html`** - Анализ видео
-5. 🖼️ **`image_indexing_diagram.html`** - Индексация
+1. **`complete_system_diagram.html`** - Main (start here!)
+2. **`backend_diagram.html`** - Detailed architecture
+3. **`backend_flow_diagram.html`** - Data flow
+4. **`video_analysis_diagram.html`** - Video analysis
+5. **`image_indexing_diagram.html`** - Indexing
 
-## ⚡ Быстрый Экспорт
+## Quick Export
 
 ### Windows - Скриншот
 ```
@@ -36,15 +36,15 @@ npm install -g @mermaid-js/mermaid-cli
 mmdc -i complete_system_diagram.html -o diagram.png -w 2400 -H 1800
 ```
 
-## ✨ Что Нового (v2.0)
+## What's New (v2.0)
 
-- ✅ Шрифт увеличен до 18px
-- ✅ Компактный дизайн (меньше пустых мест)
-- ✅ ElevenLabs соединен с GPT-4
-- ✅ Жирные заголовки
-- ✅ Готово для презентаций
+- Font increased to 18px
+- Compact design (less empty space)
+- ElevenLabs connected to GPT-4
+- Bold headings
+- Ready for presentations
 
-## 📖 Подробнее
+## More Details
 
 - **Полный гайд**: [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
 - **Описание**: [README_DIAGRAMS.md](README_DIAGRAMS.md)

@@ -384,7 +384,7 @@ graph LR
 
 ---
 
-## 📊 Data Type Transformations Summary
+## Data Type Transformations Summary
 
 | Stage | Input Type | Output Type | Transformation |
 |-------|------------|-------------|----------------|
