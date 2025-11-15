@@ -1,6 +1,6 @@
 # Backend Code Flow: Function-Level Technical Diagram
 
-## 🔍 Function Call Hierarchy & AI Integration Points
+## Function Call Hierarchy & AI Integration Points
 
 ```mermaid
 graph TD
@@ -60,7 +60,7 @@ graph TD
 
 ---
 
-## 📝 Detailed Function Specifications
+## Detailed Function Specifications
 
 ### 1. Image Description Function (AI Core)
 
@@ -627,7 +627,7 @@ flowchart TD
 
 ---
 
-## 🔄 Complete Request-Response Cycle
+## Complete Request-Response Cycle
 
 ### Image Search Request Flow
 
