@@ -31,21 +31,81 @@ This platform combines computer vision, natural language processing, and vector 
 
 ## System Diagrams
 
-We provide comprehensive visual diagrams of the system architecture. Open any HTML file in your browser to view interactive diagrams.
+### Complete System Architecture
+
+```mermaid
+graph TB
+    subgraph CLIENT["CLIENT LAYER"]
+        FLUTTER["Flutter Application<br/>Mobile & Web | Wolt-style UI"]
+    end
+    
+    subgraph API_LAYER["API LAYER - FastAPI Server (Port 8000)"]
+        FASTAPI["FastAPI Application<br/>main.py"]
+        EP1["/describe-image<br/>Image Description"]
+        EP2["/add-image<br/>Index Image"]
+        EP3["/search-images<br/>Semantic Search"]
+        EP4["/analyze-video<br/>Video Analysis"]
+        EP5["/index-stats<br/>Statistics"]
+    end
+    
+    subgraph PROCESSING["PROCESSING LAYER"]
+        PIL["PIL Image<br/>Decode • Base64 • Format"]
+        CV2["OpenCV<br/>Frame Extract • 5 Frames • JPEG"]
+        FFMPEG["ffmpeg<br/>Audio Extract • WAV • PCM 16-bit"]
+    end
+    
+    subgraph AI_CORE["AI PROCESSING CORE"]
+        GPT4["GPT-4 Vision (gpt-4o)<br/>Image → Text Description<br/>Max 1500 tokens • Temperature: 0"]
+        EMBED["text-embedding-3-small<br/>Text → 1536-dim Vector<br/>Semantic Encoding • float32"]
+        STT["ElevenLabs STT (scribe_v1)<br/>Audio → Text Transcription<br/>Word Timestamps • Language Detection"]
+    end
+    
+    subgraph VECTOR_DB["VECTOR DATABASE (FAISS)"]
+        FAISS["FAISS IndexFlatL2<br/>L2 Distance • 1536 Dimensions • O(n)"]
+        METADATA["Metadata Storage<br/>Pickle • Paths • Descriptions"]
+        QUERY["Query Processing<br/>Description • Embedding • Search"]
+        SIM["Similarity Engine<br/>L2 Distance → % • Ranking"]
+    end
+    
+    FLUTTER -->|HTTP POST| FASTAPI
+    FASTAPI --> EP1 & EP2 & EP3 & EP4 & EP5
+    
+    EP1 & EP2 & EP3 --> PIL
+    EP4 --> CV2 & FFMPEG
+    
+    PIL & CV2 --> GPT4
+    FFMPEG --> STT
+    STT -.->|Text Output| GPT4
+    
+    GPT4 --> EMBED
+    EMBED --> FAISS
+    FAISS <--> METADATA
+    
+    EP2 --> FAISS
+    EP3 --> QUERY
+    QUERY --> FAISS
+    FAISS --> SIM
+    SIM --> EP3
+    
+    EP1 & EP3 & EP4 -->|JSON Response| FLUTTER
+    
+    style CLIENT fill:#e3f2fd,stroke:#1565c0,stroke-width:4px,color:#000
+    style API_LAYER fill:#f3e5f5,stroke:#6a1b9a,stroke-width:4px,color:#000
+    style PROCESSING fill:#fff3e0,stroke:#ef6c00,stroke-width:4px,color:#000
+    style AI_CORE fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px,color:#000
+    style VECTOR_DB fill:#fce4ec,stroke:#ad1457,stroke-width:4px,color:#000
+```
 
 ### Interactive Diagrams (HTML)
 
-**Main Diagram:**
-- [`complete_system_diagram.html`](complete_system_diagram.html) - Complete system architecture with all components. Interactive: Click any component for detailed information. Perfect for presentations.
+For interactive versions with clickable components and detailed information:
 
-**Detailed Diagrams:**
-- [`backend_diagram.html`](backend_diagram.html) - Detailed backend architecture, all API endpoints and their connections, AI model integration
-- [`backend_flow_diagram.html`](backend_flow_diagram.html) - Data flow through the AI pipeline, step-by-step processing flow, data transformations
-- [`video_analysis_diagram.html`](video_analysis_diagram.html) - Video analysis pipeline, multimodal processing (visual + audio), frame extraction and transcription flow
-- [`image_indexing_diagram.html`](image_indexing_diagram.html) - Image indexing process, 5-variation embedding strategy, FAISS storage workflow
-
-**Diagram Index:**
-- [`diagrams_index.html`](diagrams_index.html) - View all diagrams in one place
+- **[`complete_system_diagram.html`](complete_system_diagram.html)** - Interactive version of the main diagram. Click any component for detailed information.
+- **[`backend_diagram.html`](backend_diagram.html)** - Detailed backend architecture
+- **[`backend_flow_diagram.html`](backend_flow_diagram.html)** - Data flow through the AI pipeline
+- **[`video_analysis_diagram.html`](video_analysis_diagram.html)** - Video analysis pipeline
+- **[`image_indexing_diagram.html`](image_indexing_diagram.html)** - Image indexing process
+- **[`diagrams_index.html`](diagrams_index.html)** - View all diagrams in one place
 
 ### Documentation
 - **[`README_DIAGRAMS.md`](README_DIAGRAMS.md)** - Diagram usage guide
