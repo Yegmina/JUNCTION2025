@@ -68,6 +68,7 @@
         td.no-match {
             text-align: center;
             color: #333;
+            cursor: help;
         }
 
         td.video-cell {
@@ -91,7 +92,7 @@
         }
 
         td.match {
-            cursor: pointer;
+            cursor: help;
         }
 
         td.match:hover {
@@ -99,38 +100,22 @@
         }
 
         td.match.glow-effect {
-            box-shadow: 0 0 15px rgba(40, 167, 69, 0.8), 0 0 30px rgba(40, 167, 69, 0.6);
-            animation: pulse-glow 2s ease-in-out infinite;
-            position: relative;
-            z-index: 10;
+            outline: 3px solid #28a745;
+            outline-offset: -3px;
         }
 
         td.match.has-info {
-            box-shadow: 0 0 10px rgba(40, 167, 69, 0.6), 0 0 20px rgba(40, 167, 69, 0.4);
-            position: relative;
-            z-index: 10;
+            outline: 3px solid #28a745;
+            outline-offset: -3px;
         }
 
         td.no-match.has-info {
-            box-shadow: 0 0 10px rgba(220, 53, 69, 0.6), 0 0 20px rgba(220, 53, 69, 0.4);
-            position: relative;
-            z-index: 10;
+            outline: 3px solid #dc3545;
+            outline-offset: -3px;
         }
 
         .info-area.pink-tint {
             background-color: #ffe5e5;
-        }
-
-        @keyframes pulse-glow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 15px rgba(40, 167, 69, 0.8), 0 0 30px rgba(40, 167, 69, 0.6);
-            }
-
-            50% {
-                box-shadow: 0 0 20px rgba(40, 167, 69, 1), 0 0 40px rgba(40, 167, 69, 0.8);
-            }
         }
     </style>
 </head>
@@ -156,7 +141,8 @@
     <p>
         Below is an interactive version of the table. For some of the videos we were testing on. Each intersection marks
         percent-wise similarity of the menu item (column) and the video (row). <span
-            style="background-color: rgba(142, 227, 162, 0.8);">Hover the cell</span> to see
+            style="background-color: rgba(142, 227, 162, 0.8); color: #28a745; font-weight: bold;">Hover the cell</span>
+        to see
         details about the
         specific detection
     </p>
