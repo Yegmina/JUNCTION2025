@@ -94,7 +94,7 @@ flowchart LR
     D --> E[Load prompt.txt<br/>System Prompt]
     E --> F[OpenAI API Call<br/>client.chat.completions.create]
     F --> G[model: gpt-4o<br/>messages: system + user<br/>content: text + image_url]
-    G --> H[Response.choices[0]<br/>.message.content]
+    G --> H["Response.choices at index 0<br/>.message.content"]
     H --> I[Return Description<br/>String]
 ```
 
@@ -152,7 +152,7 @@ async def get_embedding(text: str) -> np.ndarray:
 ```mermaid
 flowchart LR
     A[Description Text] --> B[client.embeddings.create<br/>model: text-embedding-3-small]
-    B --> C[Response.data[0]<br/>.embedding]
+    B --> C["Response.data at index 0<br/>.embedding"]
     C --> D[np.array<br/>dtype=float32]
     D --> E[1536-dim Vector<br/>Return]
 ```
@@ -294,7 +294,7 @@ flowchart TD
     D --> E[1536-dim Query Vector]
     E --> F[Reshape: 1x1536<br/>for FAISS]
     F --> G[faiss_index.search<br/>query_vector, k=5]
-    G --> H[Return: distances[], indices[]]
+    G --> H["Return: distances array, indices array"]
     H --> I[Load Metadata<br/>for each index]
     I --> J[Calculate Similarity %<br/>1 / 1+distance * 100]
     J --> K[Sort by Similarity]
@@ -369,7 +369,7 @@ flowchart TD
     
     M --> N[Next Frame]
     N --> F
-    F -->|Complete| O[Return Frame Descriptions<br/>List[Dict]]
+    F -->|Complete| O["Return Frame Descriptions<br/>List of Dict objects"]
 ```
 
 **Frame Extraction Code:**
@@ -593,7 +593,7 @@ flowchart TD
     N --> P
     O --> P
     
-    P --> Q[Format JSON Response<br/>frame_analysis[]<br/>audio_transcription{}<br/>summary{}]
+    P --> Q["Format JSON Response<br/>frame_analysis array<br/>audio_transcription object<br/>summary object"]
     Q --> R[Return Response<br/>Processing Time]
 ```
 
@@ -661,7 +661,7 @@ sequenceDiagram
     
     FastAPI->>FastAPI: Convert distances<br/>to similarity %
     FastAPI->>FastAPI: Format results
-    FastAPI->>Client: JSON response<br/>{query_description, results[]}
+    FastAPI->>Client: "JSON response<br/>query_description and results array"
 ```
 
 ---
