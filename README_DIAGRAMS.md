@@ -2,7 +2,7 @@
 
 ## Beautiful Diagrams for Presentation
 
-Созданы 5 визуально красивых HTML-диаграмм, которые можно открыть в браузере и экспортировать как изображения.
+5 visually beautiful HTML diagrams that can be opened in a browser and exported as images.
 
 ### Updates v2.0
 - **Increased font** (18px) - better readability
@@ -14,88 +14,87 @@
 ### Diagram Files
 
 1. **`complete_system_diagram.html`** **MAIN DIAGRAM**
-   - Полная архитектура всей системы
-   - Все компоненты в одном месте
-   - Идеально для презентации
-   - Красивый градиентный дизайн
+   - Complete architecture of the entire system
+   - All components in one place
+   - Perfect for presentation
+   - Beautiful gradient design
 
-2. **`backend_diagram.html`** - Детальная архитектура backend
-   - Полная структура backend
-   - Все API endpoints
-   - AI модели и их интеграция
-   - Векторная база данных
+2. **`backend_diagram.html`** - Detailed backend architecture
+   - Complete backend structure
+   - All API endpoints
+   - AI models and their integration
+   - Vector database
 
-3. **`backend_flow_diagram.html`** - Поток данных через AI
-   - Полный pipeline обработки
-   - Преобразования данных
-   - От входа до выхода
-   - Горизонтальный поток
+3. **`backend_flow_diagram.html`** - Data flow through AI
+   - Complete processing pipeline
+   - Data transformations
+   - From input to output
+   - Horizontal flow
 
-4. **`video_analysis_diagram.html`** - Анализ видео
-   - Мультимодальная обработка
-   - Визуальный и аудио пути
-   - Объединение результатов
-   - Retry логика
+4. **`video_analysis_diagram.html`** - Video analysis
+   - Multimodal processing
+   - Visual and audio paths
+   - Results combination
+   - Retry logic
 
-5. **`image_indexing_diagram.html`** - Индексация изображений
-   - Стратегия 5 вариаций
-   - Процесс создания эмбеддингов
-   - Сохранение в FAISS
-   - Детальный процесс
+5. **`image_indexing_diagram.html`** - Image indexing
+   - 5-variation strategy
+   - Embedding creation process
+   - Storage in FAISS
+   - Detailed process
 
-## 🚀 Как Использовать
+## How to Use
 
-> 📖 **Подробный гайд по экспорту**: См. [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
+> **Detailed export guide**: See [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
 
-### Вариант 1: Открыть в Браузере (Быстрый старт)
+### Option 1: Open in Browser (Quick Start)
 
-1. Просто откройте любой `.html` файл в браузере
-2. Диаграмма отобразится автоматически
-3. Используйте инструменты браузера для экспорта:
-   - **Chrome/Edge**: Правый клик → "Сохранить как" или Print → Save as PDF
-   - **Firefox**: Правый клик → "Сохранить изображение"
+1. Simply open any `.html` file in a browser
+2. The diagram will display automatically
+3. Use browser tools for export:
+   - **Chrome/Edge**: Right-click → "Save as" or Print → Save as PDF
+   - **Firefox**: Right-click → "Save image"
 
-### Вариант 2: Экспорт как PNG/SVG
+### Option 2: Export as PNG/SVG
 
-#### Используя Mermaid CLI (Рекомендуется)
+#### Using Mermaid CLI (Recommended)
 
 ```bash
-# Установить Mermaid CLI
+# Install Mermaid CLI
 npm install -g @mermaid-js/mermaid-cli
 
-# Экспортировать как PNG
+# Export as PNG
 mmdc -i backend_diagram.html -o backend_diagram.png -w 2400 -H 1800
 
-# Экспортировать как SVG
+# Export as SVG
 mmdc -i backend_diagram.html -o backend_diagram.svg
 ```
 
-#### Используя Online Tools
+#### Using Online Tools
 
-1. Откройте HTML файл в браузере
-2. Используйте расширение браузера для скриншотов:
+1. Open HTML file in browser
+2. Use browser extension for screenshots:
    - **Full Page Screen Capture** (Chrome)
    - **FireShot** (Firefox/Chrome)
-3. Или используйте онлайн сервисы:
-   - https://mermaid.live/ (скопируйте код из HTML)
-   - https://www.diagrams.net/ (импорт Mermaid)
+3. Or use online services:
+   - https://mermaid.live/ (copy code from HTML)
+   - https://www.diagrams.net/ (Mermaid import)
 
-### Вариант 3: Использовать в Презентации
+### Option 3: Use in Presentation
 
-1. Откройте HTML в браузере
-2. Сделайте скриншот (Win+Shift+S на Windows)
-3. Вставьте в PowerPoint/Google Slides
-4. Или используйте встроенный экспорт браузера
+1. Open HTML in browser
+2. Take a screenshot (Win+Shift+S on Windows)
+3. Paste into PowerPoint/Google Slides
+4. Or use built-in browser export
 
-## 🎨 Особенности Диаграмм
+## Diagram Features
 
-- ✅ **Красивые градиентные фоны**
-- ✅ **Цветовая кодировка компонентов**
-- ✅ **Эмодзи для визуального разделения**
-- ✅ **Адаптивный дизайн**
-- ✅ **Профессиональный вид**
+- **Beautiful gradient backgrounds**
+- **Color-coded components**
+- **Adaptive design**
+- **Professional appearance**
 
-## 📋 Цветовая Легенда
+## Color Legend
 
 - **Blue** - Client and API layer
 - **Green** - AI models (GPT-4, Embeddings, STT)
@@ -105,38 +104,37 @@ mmdc -i backend_diagram.html -o backend_diagram.svg
 
 ## Configuration
 
-Вы можете изменить стили в HTML файлах:
-- Цвета фона в `<style>` секции
-- Размеры в CSS
-- Текст и описания в диаграммах
+You can modify styles in HTML files:
+- Background colors in `<style>` section
+- Sizes in CSS
+- Text and descriptions in diagrams
 
-## 📸 Примеры Использования
+## Usage Examples
 
-### Для Презентации
-- Откройте в браузере на полный экран
-- Используйте режим презентации браузера (F11)
-- Делайте скриншоты нужных частей
+### For Presentation
+- Open in browser in full screen
+- Use browser presentation mode (F11)
+- Take screenshots of needed parts
 
-### Для Документации
-- Экспортируйте как PNG с высоким разрешением
-- Вставьте в Markdown документы
-- Используйте в README файлах
+### For Documentation
+- Export as PNG with high resolution
+- Insert into Markdown documents
+- Use in README files
 
-### Для Печати
-- Экспортируйте как PDF
-- Используйте Print → Save as PDF в браузере
-- Настройте размер страницы перед печатью
+### For Printing
+- Export as PDF
+- Use Print → Save as PDF in browser
+- Configure page size before printing
 
-## 💡 Советы
+## Tips
 
-1. **Для лучшего качества**: Используйте Mermaid CLI для экспорта
-2. **Для быстрого просмотра**: Просто откройте HTML в браузере
-3. **Для редактирования**: Измените код Mermaid в HTML файлах
-4. **Для кастомизации**: Настройте CSS стили под ваш бренд
+1. **For best quality**: Use Mermaid CLI for export
+2. **For quick viewing**: Simply open HTML in browser
+3. **For editing**: Modify Mermaid code in HTML files
+4. **For customization**: Configure CSS styles for your brand
 
 ---
 
-**Все диаграммы готовы к использованию!** 🎉
+**All diagrams are ready to use!**
 
-Просто откройте HTML файлы в браузере и наслаждайтесь красивыми визуализациями!
-
+Simply open HTML files in browser and enjoy beautiful visualizations!

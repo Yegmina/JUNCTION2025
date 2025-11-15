@@ -12,17 +12,17 @@
 
 ## Quick Export
 
-### Windows - Скриншот
+### Windows - Screenshot
 ```
-1. Откройте complete_system_diagram.html
+1. Open complete_system_diagram.html
 2. Win + Shift + S
-3. Выберите область
-4. Ctrl + V в PowerPoint
+3. Select area
+4. Ctrl + V in PowerPoint
 ```
 
-### Chrome/Edge - PDF (Лучшее Качество)
+### Chrome/Edge - PDF (Best Quality)
 ```
-1. Откройте диаграмму
+1. Open diagram
 2. Ctrl + P
 3. Save as PDF
 4. Margins: None
@@ -30,7 +30,7 @@
 6. Save
 ```
 
-### Для Разработчиков - PNG
+### For Developers - PNG
 ```bash
 npm install -g @mermaid-js/mermaid-cli
 mmdc -i complete_system_diagram.html -o diagram.png -w 2400 -H 1800
@@ -46,10 +46,9 @@ mmdc -i complete_system_diagram.html -o diagram.png -w 2400 -H 1800
 
 ## More Details
 
-- **Полный гайд**: [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
-- **Описание**: [README_DIAGRAMS.md](README_DIAGRAMS.md)
+- **Full guide**: [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
+- **Description**: [README_DIAGRAMS.md](README_DIAGRAMS.md)
 
 ---
 
-**Совет**: Для важных презентаций экспортируйте в PDF (Ctrl+P → Save as PDF)
-
+**Tip**: For important presentations, export to PDF (Ctrl+P → Save as PDF)

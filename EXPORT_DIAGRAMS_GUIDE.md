@@ -2,9 +2,9 @@
 
 ## Quick Start
 
-1. Откройте любой `.html` файл в браузере
-2. Диаграмма отобразится автоматически
-3. Используйте один из методов ниже для экспорта
+1. Open any `.html` file in a browser
+2. The diagram will display automatically
+3. Use one of the methods below for export
 
 ---
 
@@ -22,81 +22,81 @@ All diagrams now have:
 ## Method 1: Screenshot (Simplest)
 
 ### Windows
-1. Откройте `complete_system_diagram.html` в браузере
-2. Нажмите **Win + Shift + S**
-3. Выберите область диаграммы
-4. Вставьте в PowerPoint/Word/любой редактор
+1. Open `complete_system_diagram.html` in browser
+2. Press **Win + Shift + S**
+3. Select diagram area
+4. Paste into PowerPoint/Word/any editor
 
 ### macOS
-1. Откройте файл в браузере
-2. Нажмите **Cmd + Shift + 4**
-3. Выберите область
-4. Файл сохранится на рабочий стол
+1. Open file in browser
+2. Press **Cmd + Shift + 4**
+3. Select area
+4. File will be saved to desktop
 
 ---
 
-## 📄 Метод 2: Экспорт в PDF (Высокое Качество)
+## Method 2: Export to PDF (High Quality)
 
 ### Chrome/Edge
-1. Откройте диаграмму в браузере
-2. Правый клик → **Print** (или Ctrl+P)
+1. Open diagram in browser
+2. Right-click → **Print** (or Ctrl+P)
 3. Destination: **Save as PDF**
-4. Layout: **Landscape** (альбомная)
+4. Layout: **Landscape**
 5. More settings:
    - Margins: **None**
-   - Background graphics: **✓ Включено**
-6. Нажмите **Save**
+   - Background graphics: **✓ Enabled**
+6. Click **Save**
 
 ### Firefox
-1. Откройте диаграмму
+1. Open diagram
 2. Ctrl+P (Print)
 3. Print to: **Microsoft Print to PDF**
-4. Сохраните
+4. Save
 
 ---
 
-## 🎨 Метод 3: Расширения Браузера (Рекомендуется для PNG)
+## Method 3: Browser Extensions (Recommended for PNG)
 
 ### Chrome
 
-**Full Page Screen Capture** (Бесплатно)
-1. Установите: https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl
-2. Откройте диаграмму
-3. Нажмите на иконку расширения
-4. Скачайте PNG
+**Full Page Screen Capture** (Free)
+1. Install: https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl
+2. Open diagram
+3. Click extension icon
+4. Download PNG
 
-**FireShot** (Бесплатно)
-1. Установите: https://chrome.google.com/webstore/detail/fireshot/mcbpblocgmgfnpjjppndjkmgjaogfceg
-2. Откройте диаграмму
-3. Нажмите на иконку
+**FireShot** (Free)
+1. Install: https://chrome.google.com/webstore/detail/fireshot/mcbpblocgmgfnpjjppndjkmgjaogfceg
+2. Open diagram
+3. Click icon
 4. "Capture entire page" → Save as PNG
 
 ### Firefox
 
-**Fireshot для Firefox**
-1. Установите: https://addons.mozilla.org/en-US/firefox/addon/fireshot/
-2. Откройте диаграмму
-3. Используйте расширение для экспорта
+**Fireshot for Firefox**
+1. Install: https://addons.mozilla.org/en-US/firefox/addon/fireshot/
+2. Open diagram
+3. Use extension for export
 
 ---
 
 ## Method 4: Mermaid CLI (Professional)
 
-Для разработчиков - лучший метод для автоматизации.
+For developers - best method for automation.
 
-### Установка
+### Installation
 
 ```bash
 npm install -g @mermaid-js/mermaid-cli
 ```
 
-### Экспорт в PNG (Высокое Разрешение)
+### Export to PNG (High Resolution)
 
 ```bash
-# Основной экспорт
+# Main export
 mmdc -i complete_system_diagram.html -o system_architecture.png -w 2400 -H 1800
 
-# Все диаграммы
+# All diagrams
 mmdc -i complete_system_diagram.html -o complete_system.png -w 2400 -H 1800
 mmdc -i backend_diagram.html -o backend.png -w 2400 -H 1600
 mmdc -i backend_flow_diagram.html -o backend_flow.png -w 2400 -H 1400
@@ -104,18 +104,18 @@ mmdc -i video_analysis_diagram.html -o video_analysis.png -w 2400 -H 1600
 mmdc -i image_indexing_diagram.html -o image_indexing.png -w 2400 -H 1600
 ```
 
-### Экспорт в SVG (Векторный Формат)
+### Export to SVG (Vector Format)
 
 ```bash
 mmdc -i complete_system_diagram.html -o system_architecture.svg
 
-# Преимущества SVG:
-# - Масштабируется без потери качества
-# - Идеально для печати
-# - Можно редактировать в Illustrator/Inkscape
+# SVG advantages:
+# - Scales without quality loss
+# - Perfect for printing
+# - Can be edited in Illustrator/Inkscape
 ```
 
-### Экспорт в PDF
+### Export to PDF
 
 ```bash
 mmdc -i complete_system_diagram.html -o system_architecture.pdf
@@ -123,112 +123,111 @@ mmdc -i complete_system_diagram.html -o system_architecture.pdf
 
 ---
 
-## 🌐 Метод 5: Online Tools
+## Method 5: Online Tools
 
 ### Mermaid Live Editor
-1. Откройте https://mermaid.live/
-2. Скопируйте код Mermaid из HTML файла (между `<div class="mermaid">` и `</div>`)
-3. Вставьте в редактор
-4. Нажмите **Download PNG** или **Download SVG**
+1. Open https://mermaid.live/
+2. Copy Mermaid code from HTML file (between `<div class="mermaid">` and `</div>`)
+3. Paste into editor
+4. Click **Download PNG** or **Download SVG**
 
 ### Diagrams.net (draw.io)
-1. Откройте https://app.diagrams.net/
+1. Open https://app.diagrams.net/
 2. File → Import from → **Mermaid...**
-3. Вставьте код
-4. Экспортируйте как PNG/SVG/PDF
+3. Paste code
+4. Export as PNG/SVG/PDF
 
 ---
 
 ## Recommended Export Settings
 
-### Для Презентации (PowerPoint/Google Slides)
-- **Формат**: PNG
-- **Разрешение**: 2400x1800px
+### For Presentation (PowerPoint/Google Slides)
+- **Format**: PNG
+- **Resolution**: 2400x1800px
 - **DPI**: 300
-- **Качество**: Максимальное
+- **Quality**: Maximum
 
-### Для Документации (Markdown/README)
-- **Формат**: PNG или SVG
-- **Разрешение**: 1920x1440px
+### For Documentation (Markdown/README)
+- **Format**: PNG or SVG
+- **Resolution**: 1920x1440px
 - **DPI**: 150-200
 
-### Для Печати
-- **Формат**: PDF или SVG
-- **Разрешение**: Максимальное
-- **Формат бумаги**: A4 или A3
-- **Ориентация**: Landscape (альбомная)
+### For Printing
+- **Format**: PDF or SVG
+- **Resolution**: Maximum
+- **Paper size**: A4 or A3
+- **Orientation**: Landscape
 
-### Для Веб-сайта
-- **Формат**: PNG (оптимизированный) или WebP
-- **Разрешение**: 1600x1200px
-- **Оптимизация**: Используйте TinyPNG или ImageOptim
+### For Website
+- **Format**: PNG (optimized) or WebP
+- **Resolution**: 1600x1200px
+- **Optimization**: Use TinyPNG or ImageOptim
 
 ---
 
-## 🎯 Оптимизация Изображений
+## Image Optimization
 
-После экспорта можно оптимизировать размер файлов:
+After export, you can optimize file sizes:
 
 ### Online Tools
-- **TinyPNG**: https://tinypng.com/ (сжатие PNG)
-- **Squoosh**: https://squoosh.app/ (Google, поддерживает все форматы)
+- **TinyPNG**: https://tinypng.com/ (PNG compression)
+- **Squoosh**: https://squoosh.app/ (Google, supports all formats)
 - **Compress PNG**: https://compresspng.com/
 
-### Командная Строка
+### Command Line
 ```bash
-# Установить ImageMagick
+# Install ImageMagick
 # Windows: choco install imagemagick
 # macOS: brew install imagemagick
 
-# Оптимизация PNG
+# PNG optimization
 magick system_architecture.png -quality 90 -resize 2400x1800 optimized.png
 
-# Конвертация в WebP (меньший размер)
+# Convert to WebP (smaller size)
 magick system_architecture.png -quality 90 system_architecture.webp
 ```
 
 ---
 
-## 💡 Советы для Лучшего Качества
+## Tips for Best Quality
 
-1. **Используйте полноэкранный режим** (F11) перед экспортом
-2. **Отключите расширения браузера** которые могут мешать рендерингу
-3. **Используйте Chrome или Edge** для лучшей поддержки Mermaid
-4. **Масштабируйте браузер до 100%** (Ctrl+0) перед экспортом
-5. **Для печати используйте PDF или SVG** форматы
-
----
-
-## 🆘 Решение Проблем
-
-### Диаграмма не отображается
-- Проверьте интернет-соединение (Mermaid загружается с CDN)
-- Очистите кэш браузера (Ctrl+Shift+Delete)
-- Попробуйте другой браузер
-
-### Низкое качество экспорта
-- Используйте PDF вместо PNG
-- Увеличьте разрешение в настройках
-- Используйте Mermaid CLI для лучшего качества
-
-### Текст слишком маленький
-- Откройте HTML файл и измените `fontSize: '18px'` на `'20px'` или `'22px'`
-- Или используйте zoom в браузере перед экспортом
+1. **Use fullscreen mode** (F11) before export
+2. **Disable browser extensions** that may interfere with rendering
+3. **Use Chrome or Edge** for best Mermaid support
+4. **Scale browser to 100%** (Ctrl+0) before export
+5. **For printing use PDF or SVG** formats
 
 ---
 
-## 📋 Чек-лист Экспорта
+## Troubleshooting
 
-- [ ] Открыл диаграмму в браузере
-- [ ] Проверил, что все элементы отображаются корректно
-- [ ] Выбрал метод экспорта
-- [ ] Установил правильное разрешение/качество
-- [ ] Экспортировал файл
-- [ ] Проверил качество экспортированного файла
-- [ ] (Опционально) Оптимизировал размер файла
-- [ ] Готово! 🎉
+### Diagram not displaying
+- Check internet connection (Mermaid loads from CDN)
+- Clear browser cache (Ctrl+Shift+Delete)
+- Try different browser
+
+### Low export quality
+- Use PDF instead of PNG
+- Increase resolution in settings
+- Use Mermaid CLI for better quality
+
+### Text too small
+- Open HTML file and change `fontSize: '18px'` to `'20px'` or `'22px'`
+- Or use zoom in browser before export
 
 ---
 
-**Рекомендация**: Для важных презентаций используйте **Метод 2 (PDF)** или **Метод 4 (Mermaid CLI PNG)** для наилучшего качества.
+## Export Checklist
 
+- [ ] Opened diagram in browser
+- [ ] Verified all elements display correctly
+- [ ] Chose export method
+- [ ] Set correct resolution/quality
+- [ ] Exported file
+- [ ] Checked quality of exported file
+- [ ] (Optional) Optimized file size
+- [ ] Done!
+
+---
+
+**Recommendation**: For important presentations, use **Method 2 (PDF)** or **Method 4 (Mermaid CLI PNG)** for best quality.
