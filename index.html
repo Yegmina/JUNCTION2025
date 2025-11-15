@@ -68,7 +68,6 @@
         td.no-match {
             text-align: center;
             color: #333;
-            cursor: help;
         }
 
         td.video-cell {
@@ -91,27 +90,34 @@
             min-height: 4rem;
         }
 
-        td.match {
-            cursor: help;
-        }
-
-        td.match:hover {
-            background-color: #c3e6cb;
-        }
-
         td.match.glow-effect {
             outline: 3px solid #28a745;
             outline-offset: -3px;
+            cursor: help;
+        }
+
+        td.match.glow-effect:hover {
+            background-color: #c3e6cb;
         }
 
         td.match.has-info {
             outline: 3px solid #28a745;
             outline-offset: -3px;
+            cursor: help;
+        }
+
+        td.match.has-info:hover {
+            background-color: #c3e6cb;
         }
 
         td.no-match.has-info {
             outline: 3px solid #dc3545;
             outline-offset: -3px;
+            cursor: help;
+        }
+
+        td.no-match.has-info:hover {
+            background-color: #ffe5e5 !important;
         }
 
         .info-area.pink-tint {
@@ -140,7 +146,8 @@
 
     <p>
         Below is an interactive version of the table. For some of the videos we were testing on. Each intersection marks
-        percent-wise similarity of the menu item (column) and the video (row). <span
+        percent-wise similarity of the menu item (column) and the video (row). You can doubleclick the video to
+        fullscreen it. They're all from tiktok. <span
             style="background-color: rgba(142, 227, 162, 0.8); color: #28a745; font-weight: bold;">Hover the cell</span>
         to see
         details about the
@@ -390,18 +397,13 @@
                                 const textWithColumn = `<b>${columnName}</b> ${currentCustomText}`;
                                 updateInfoText(textWithColumn);
 
-                                // Add pink tint to info area for no-match cells
+                                // Add pink tint to info area for no-match cells, remove for match cells
                                 if (cell.classList.contains('no-match')) {
                                     document.getElementById('infoArea').classList.add('pink-tint');
                                 } else {
                                     document.getElementById('infoArea').classList.remove('pink-tint');
                                 }
                             }
-                        });
-
-                        cell.addEventListener('mouseleave', function () {
-                            // Remove pink tint when leaving
-                            document.getElementById('infoArea').classList.remove('pink-tint');
                         });
                     }
                 });
