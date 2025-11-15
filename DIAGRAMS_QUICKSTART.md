@@ -46,7 +46,6 @@ mmdc -i complete_system_diagram.html -o diagram.png -w 2400 -H 1800
 
 ## More Details
 
-- **Full guide**: [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
 - **Description**: [README_DIAGRAMS.md](README_DIAGRAMS.md)
 
 ---
