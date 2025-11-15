@@ -363,7 +363,7 @@ sequenceDiagram
     
     FastAPI->>FastAPI: Convert distances<br/>to similarity %
     FastAPI->>FastAPI: Format results<br/>with descriptions
-    FastAPI->>Flutter: JSON response<br/>{query_description, results[]}
+    FastAPI->>Flutter: JSON response<br/>query_description and results array
     Flutter->>User: Display matches
 ```
 
@@ -401,7 +401,7 @@ flowchart TD
     M --> W[Combine Results]
     T --> W
     V --> W
-    W --> X[JSON Response<br/>frame_analysis[]<br/>audio_transcription{}<br/>summary{}]
+    W --> X["JSON Response<br/>frame_analysis array<br/>audio_transcription object<br/>summary object"]
 ```
 
 **Video Processing Technical Details:**
