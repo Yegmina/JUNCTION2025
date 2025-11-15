@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Architecture - AI Food Discovery System</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+        }
+        .legend h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .ai-model { background: #e8f5e9; color: #2e7d32; }
+        .api-endpoint { background: #e3f2fd; color: #1565c0; }
+        .data-storage { background: #fff3e0; color: #e65100; }
+        .processing { background: #f3e5f5; color: #6a1b9a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI-Powered Backend Architecture</h1>
+        <p class="subtitle">Food Discovery System - Technical Deep Dive</p>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+graph TB
+    subgraph CLIENT["Client Layer"]
+        FLUTTER["Flutter App<br/>Mobile/Web"]
+    end
+    
+    subgraph API["FastAPI Server (Port 8000)"]
+        FASTAPI["FastAPI Application<br/>main.py"]
+        
+        subgraph ENDPOINTS["API Endpoints"]
+            EP1["POST /describe-image<br/>Image Description"]
+            EP2["POST /add-image<br/>Add to Index"]
+            EP3["POST /search-images<br/>Semantic Search"]
+            EP4["POST /analyze-video<br/>Video Analysis"]
+            EP5["GET /index-stats<br/>Statistics"]
+        end
+    end
+    
+    subgraph AI["AI Processing Layer"]
+        subgraph OPENAI_VISION["OpenAI Vision API"]
+            GPT4["GPT-4 Vision (gpt-4o)<br/>Image → Text Description<br/>Max 1500 tokens"]
+        end
+        
+        subgraph OPENAI_EMBED["OpenAI Embeddings"]
+            EMBED["text-embedding-3-small<br/>Text → 1536-dim Vector<br/>Semantic Encoding"]
+        end
+        
+        subgraph ELEVENLABS["ElevenLabs STT"]
+            STT["scribe_v1 Model<br/>Audio → Text Transcription<br/>Word Timestamps"]
+        end
+    end
+    
+    subgraph PROCESSING["Processing Layer"]
+        CV2["OpenCV<br/>Video Frame Extraction<br/>5 Key Frames"]
+        FFMPEG["ffmpeg<br/>Audio Extraction<br/>WAV Format"]
+        PIL["PIL Image<br/>Image Decoding<br/>Base64 Encoding"]
+    end
+    
+    subgraph VECTOR_DB["Vector Database (FAISS)"]
+        FAISS["FAISS IndexFlatL2<br/>L2 Distance Search<br/>1536 Dimensions"]
+        METADATA["Metadata Storage<br/>Pickle Format<br/>Image Paths & Descriptions"]
+    end
+    
+    FLUTTER -->|HTTP Request| FASTAPI
+    FASTAPI --> ENDPOINTS
+    
+    EP1 --> PIL
+    EP1 --> GPT4
+    EP2 --> PIL
+    EP2 --> GPT4
+    EP2 --> EMBED
+    EP2 --> FAISS
+    EP3 --> PIL
+    EP3 --> GPT4
+    EP3 --> EMBED
+    EP3 --> FAISS
+    EP4 --> CV2
+    EP4 --> FFMPEG
+    EP4 --> GPT4
+    EP4 --> STT
+    
+    GPT4 -->|Text Description| EMBED
+    EMBED -->|1536-dim Vector| FAISS
+    FAISS --> METADATA
+    
+    CV2 -->|Frame Images| GPT4
+    FFMPEG -->|WAV Audio| STT
+    
+    FAISS -->|Search Results| EP3
+    EP3 -->|JSON Response| FLUTTER
+    EP4 -->|Analysis Results| FLUTTER
+    
+    style CLIENT fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style API fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style AI fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style PROCESSING fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style VECTOR_DB fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style GPT4 fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style EMBED fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style STT fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    style FAISS fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h3>Legend</h3>
+            <span class="legend-item ai-model">AI Models</span>
+            <span class="legend-item api-endpoint">API Endpoints</span>
+            <span class="legend-item data-storage">Data Storage</span>
+            <span class="legend-item processing">Processing Tools</span>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#667eea',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#764ba2',
+                lineColor: '#2c3e50',
+                secondaryColor: '#f8f9fa',
+                tertiaryColor: '#e8f5e9',
+                fontSize: '18px'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 12,
+                nodeSpacing: 30,
+                rankSpacing: 45,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>
+

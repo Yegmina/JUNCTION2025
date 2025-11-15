@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Indexing - 5-Variation Strategy</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Indexing Pipeline</h1>
+        <p class="subtitle">5-Variation Strategy for Enhanced Search</p>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+flowchart TD
+    START([Image Upload<br/>JPEG/PNG Bytes]) --> CHECK{Index Already<br/>Exists?}
+    
+    CHECK -->|Yes| ERROR[Return Error<br/>Skip Indexing]
+    CHECK -->|No| LOOP[Generate 5 Descriptions<br/>Variations 0-4]
+    
+    LOOP --> V0[Variation 0<br/>Base Description]
+    LOOP --> V1[Variation 1<br/>Different Perspective]
+    LOOP --> V2[Variation 2<br/>Alternative Emphasis]
+    LOOP --> V3[Variation 3<br/>Different Focus]
+    LOOP --> V4[Variation 4<br/>Unique Angle]
+    
+    V0 --> GPT4[GPT-4 Vision API<br/>gpt-4o<br/>Image Analysis]
+    V1 --> GPT4
+    V2 --> GPT4
+    V3 --> GPT4
+    V4 --> GPT4
+    
+    GPT4 --> DESC0[Description 0<br/>Text String]
+    GPT4 --> DESC1[Description 1<br/>Text String]
+    GPT4 --> DESC2[Description 2<br/>Text String]
+    GPT4 --> DESC3[Description 3<br/>Text String]
+    GPT4 --> DESC4[Description 4<br/>Text String]
+    
+    DESC0 --> EMBED[text-embedding-3-small<br/>Embedding API]
+    DESC1 --> EMBED
+    DESC2 --> EMBED
+    DESC3 --> EMBED
+    DESC4 --> EMBED
+    
+    EMBED --> VEC0[Vector 0<br/>1536-dim]
+    EMBED --> VEC1[Vector 1<br/>1536-dim]
+    EMBED --> VEC2[Vector 2<br/>1536-dim]
+    EMBED --> VEC3[Vector 3<br/>1536-dim]
+    EMBED --> VEC4[Vector 4<br/>1536-dim]
+    
+    VEC0 --> RESHAPE[Reshape: 1x1536<br/>for FAISS]
+    VEC1 --> RESHAPE
+    VEC2 --> RESHAPE
+    VEC3 --> RESHAPE
+    VEC4 --> RESHAPE
+    
+    RESHAPE --> FAISS[FAISS Index<br/>faiss_index.add<br/>Add Vector]
+    
+    FAISS --> META[Store Metadata<br/>image_path<br/>description<br/>variation_num<br/>image_index]
+    
+    META --> SUCCESS[Success<br/>5 Embeddings Added<br/>Index Updated]
+    
+    style START fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style CHECK fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style ERROR fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style LOOP fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style GPT4 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style EMBED fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    style FAISS fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style META fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style SUCCESS fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                fontSize: '18px'
+            },
+            flowchart: {
+                curve: 'basis',
+                padding: 12,
+                nodeSpacing: 30,
+                rankSpacing: 50,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>
+
