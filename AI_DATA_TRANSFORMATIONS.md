@@ -1,6 +1,6 @@
 # AI Data Transformations: Technical Deep Dive
 
-## 🔄 Complete Data Flow Through AI Pipeline
+## Complete Data Flow Through AI Pipeline
 
 ```mermaid
 graph LR
@@ -48,7 +48,7 @@ graph LR
 
 ---
 
-## 🧬 Detailed AI Transformation Pipeline
+## Detailed AI Transformation Pipeline
 
 ### Transformation 1: Image → Text Description
 
@@ -401,7 +401,7 @@ graph LR
 
 ---
 
-## 🎯 AI Model Input/Output Specifications
+## AI Model Input/Output Specifications
 
 ### GPT-4 Vision (gpt-4o)
 
@@ -504,7 +504,7 @@ Data: {"model_id": "scribe_v1"}
 
 ---
 
-## 🔢 Mathematical Operations
+## Mathematical Operations
 
 ### L2 Distance Calculation
 
@@ -543,7 +543,7 @@ frame_indices = [i * step for i in range(num_frames)]
 
 ---
 
-## ⚡ Performance Characteristics
+## Performance Characteristics
 
 ### Processing Times (Typical)
 
