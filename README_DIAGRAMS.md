@@ -45,7 +45,7 @@
 
 ## How to Use
 
-> **Detailed export guide**: See [EXPORT_DIAGRAMS_GUIDE.md](EXPORT_DIAGRAMS_GUIDE.md)
+> **For export instructions**: See [DIAGRAMS_QUICKSTART.md](DIAGRAMS_QUICKSTART.md)
 
 ### Option 1: Open in Browser (Quick Start)
 

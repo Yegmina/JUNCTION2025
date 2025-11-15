@@ -110,7 +110,6 @@ For interactive versions with clickable components and detailed information:
 ### Documentation
 - **[`README_DIAGRAMS.md`](README_DIAGRAMS.md)** - Diagram usage guide
 - **[`DIAGRAMS_QUICKSTART.md`](DIAGRAMS_QUICKSTART.md)** - Quick start for diagrams
-- **[`EXPORT_DIAGRAMS_GUIDE.md`](EXPORT_DIAGRAMS_GUIDE.md)** - How to export diagrams
 - **[`BACKEND_ARCHITECTURE_DIAGRAM.md`](BACKEND_ARCHITECTURE_DIAGRAM.md)** - Technical deep dive
 - **[`BACKEND_CODE_FLOW.md`](BACKEND_CODE_FLOW.md)** - Code flow documentation
 - **[`AI_DATA_TRANSFORMATIONS.md`](AI_DATA_TRANSFORMATIONS.md)** - AI data processing details
