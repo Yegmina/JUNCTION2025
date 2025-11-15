@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
-from typing import Optional
+from typing import Optional, List, Dict
 from openai import OpenAI
 import os
 import faiss
@@ -10,6 +10,12 @@ from dotenv import load_dotenv
 from io import BytesIO
 from PIL import Image
 import base64
+import cv2
+import subprocess
+import tempfile
+import requests
+import time
+from pathlib import Path
 
 # Load environment variables
 load_dotenv()
@@ -20,6 +26,11 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
 client = OpenAI(api_key=api_key)
+
+# Initialize ElevenLabs API key
+elevenlabs_api_key = os.getenv("ELEVENLABS_API_KEY")
+if not elevenlabs_api_key:
+    print("Warning: ELEVENLABS_API_KEY not set. Audio transcription will not work.")
 
 # Global variables for FAISS index and metadata
 faiss_index = None
@@ -237,6 +248,209 @@ async def add_image_to_index(image_bytes: bytes, image_path: str = None) -> dict
         raise Exception(f"Error adding image to index: {str(e)}")
 
 
+async def extract_audio_from_video(video_bytes: bytes) -> bytes:
+    """Extract audio from video using ffmpeg.
+    
+    Args:
+        video_bytes: The video file bytes
+        
+    Returns:
+        Audio bytes in WAV format
+    """
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as video_file:
+        video_file.write(video_bytes)
+        video_path = video_file.name
+    
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as audio_file:
+            audio_path = audio_file.name
+        
+        # Extract audio using ffmpeg
+        cmd = [
+            "ffmpeg",
+            "-i", video_path,
+            "-vn",  # No video
+            "-acodec", "pcm_s16le",  # PCM 16-bit little-endian
+            "-ar", "44100",  # Sample rate
+            "-ac", "2",  # Stereo
+            "-y",  # Overwrite output
+            audio_path
+        ]
+        
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        
+        if result.returncode != 0:
+            raise Exception(f"ffmpeg error: {result.stderr}")
+        
+        # Read audio file
+        with open(audio_path, "rb") as f:
+            audio_bytes = f.read()
+        
+        return audio_bytes
+    finally:
+        # Clean up temporary files
+        try:
+            os.unlink(video_path)
+            os.unlink(audio_path)
+        except:
+            pass
+
+
+async def transcribe_audio_with_elevenlabs(audio_bytes: bytes, max_retries: int = 3, base_delay: float = 2.0) -> Dict:
+    """Transcribe audio using ElevenLabs Speech-to-Text API with retry logic.
+    
+    Args:
+        audio_bytes: Audio file bytes (WAV format)
+        max_retries: Maximum number of retry attempts for rate-limited requests
+        base_delay: Base delay in seconds for exponential backoff
+        
+    Returns:
+        Dictionary with transcription results including text and word timestamps
+    """
+    if not elevenlabs_api_key:
+        raise Exception("ElevenLabs API key not configured")
+    
+    try:
+        # Save audio to temporary file for API call
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as audio_file:
+            audio_file.write(audio_bytes)
+            audio_path = audio_file.name
+        
+        try:
+            # Call ElevenLabs STT API using REST API with retry logic
+            url = "https://api.elevenlabs.io/v1/speech-to-text"
+            headers = {
+                "xi-api-key": elevenlabs_api_key
+            }
+            
+            last_error = None
+            for attempt in range(max_retries + 1):
+                try:
+                    # Use 'file' parameter as required by the API
+                    with open(audio_path, "rb") as f:
+                        files = {
+                            "file": ("audio.wav", f, "audio/wav")
+                        }
+                        data = {
+                            "model_id": "scribe_v1"
+                        }
+                        
+                        response = requests.post(url, headers=headers, files=files, data=data, timeout=60)
+                        
+                        if response.status_code == 200:
+                            transcription = response.json()
+                            return transcription
+                        elif response.status_code == 429:
+                            # Rate limited or system busy - retry with exponential backoff
+                            if attempt < max_retries:
+                                delay = base_delay * (2 ** attempt)
+                                error_msg = response.json().get("detail", {}).get("message", "Rate limit exceeded")
+                                print(f"  ⏳ {error_msg} - Retrying in {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
+                                time.sleep(delay)
+                                continue
+                            else:
+                                raise Exception(f"ElevenLabs API rate limited after {max_retries} retries: {response.text}")
+                        else:
+                            raise Exception(f"ElevenLabs API error: {response.status_code} - {response.text}")
+                            
+                except requests.exceptions.RequestException as e:
+                    last_error = e
+                    if attempt < max_retries:
+                        delay = base_delay * (2 ** attempt)
+                        print(f"  ⏳ Request error: {e} - Retrying in {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
+                        time.sleep(delay)
+                        continue
+                    else:
+                        raise Exception(f"Network error after {max_retries} retries: {str(e)}")
+            
+            if last_error:
+                raise last_error
+                
+        finally:
+            try:
+                os.unlink(audio_path)
+            except:
+                pass
+    except Exception as e:
+        raise Exception(f"Error transcribing audio: {str(e)}")
+
+
+async def analyze_video_frames(video_bytes: bytes, num_frames: int = 5) -> List[Dict]:
+    """Extract and analyze key frames from video.
+    
+    Args:
+        video_bytes: The video file bytes
+        num_frames: Number of frames to extract and analyze
+        
+    Returns:
+        List of dictionaries with frame descriptions
+    """
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as video_file:
+        video_file.write(video_bytes)
+        video_path = video_file.name
+    
+    try:
+        # Open video with OpenCV
+        cap = cv2.VideoCapture(video_path)
+        if not cap.isOpened():
+            raise Exception("Could not open video file")
+        
+        # Get video properties
+        total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        fps = cap.get(cv2.CAP_PROP_FPS)
+        duration = total_frames / fps if fps > 0 else 0
+        
+        print(f"  Video info: {total_frames} frames, {fps:.2f} fps, {duration:.2f}s duration")
+        
+        # Calculate frame indices to extract (evenly spaced)
+        frame_indices = []
+        if total_frames > 0:
+            step = max(1, total_frames // num_frames)
+            frame_indices = [i * step for i in range(min(num_frames, total_frames))]
+        
+        print(f"  Analyzing {len(frame_indices)} frames...")
+        
+        frame_descriptions = []
+        for i, frame_idx in enumerate(frame_indices, 1):
+            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
+            ret, frame = cap.read()
+            
+            if not ret:
+                continue
+            
+            # Convert frame to image bytes
+            _, buffer = cv2.imencode('.jpg', frame)
+            frame_bytes = buffer.tobytes()
+            
+            # Get description using OpenAI Vision API
+            try:
+                print(f"  Frame {i}/{len(frame_indices)} (t={frame_idx/fps:.2f}s)...", end=" ", flush=True)
+                description = await get_image_description_from_bytes(frame_bytes)
+                timestamp = frame_idx / fps if fps > 0 else 0
+                
+                frame_descriptions.append({
+                    "frame_index": frame_idx,
+                    "timestamp": round(timestamp, 2),
+                    "description": description
+                })
+                print("✓")
+            except Exception as e:
+                print(f"✗ Error: {e}")
+        
+        cap.release()
+        return frame_descriptions
+    finally:
+        try:
+            os.unlink(video_path)
+        except:
+            pass
+
+
 async def search_similar_images(image_bytes: bytes, top_k: int = 5) -> dict:
     """Search for similar images in FAISS index."""
     global faiss_index, faiss_metadata
@@ -350,3 +564,93 @@ async def get_index_list():
         )
 
     return {"total": len(items), "items": items}
+
+
+@app.post("/analyze-video")
+async def analyze_video(file: UploadFile = File(...)):
+    """Analyze a video file: extract frames and transcribe audio.
+    
+    This endpoint:
+    1. Extracts key frames from the video and analyzes them using OpenAI Vision
+    2. Extracts audio from the video and transcribes it using ElevenLabs STT
+    3. Returns combined results with visual descriptions and audio transcription
+    
+    Note: Processing can take 30 seconds to several minutes depending on video length.
+    """
+    import time
+    start_time = time.time()
+    
+    try:
+        print(f"\n{'='*60}")
+        print(f"Starting video analysis for: {file.filename}")
+        print(f"{'='*60}")
+        
+        video_bytes = await file.read()
+        video_size_mb = len(video_bytes) / (1024 * 1024)
+        print(f"Video size: {video_size_mb:.2f} MB")
+        
+        # Analyze video frames
+        print("\n[1/3] Extracting and analyzing video frames...")
+        frame_start = time.time()
+        frame_descriptions = await analyze_video_frames(video_bytes, num_frames=5)
+        frame_time = time.time() - frame_start
+        print(f"✓ Frame analysis completed in {frame_time:.1f}s ({len(frame_descriptions)} frames)")
+        
+        # Extract and transcribe audio
+        audio_transcription = None
+        transcription_text = ""
+        transcription_words = []
+        
+        print("\n[2/3] Extracting audio from video...")
+        try:
+            audio_start = time.time()
+            audio_bytes = await extract_audio_from_video(video_bytes)
+            audio_extract_time = time.time() - audio_start
+            print(f"✓ Audio extraction completed in {audio_extract_time:.1f}s")
+            
+            print("\n[3/3] Transcribing audio with ElevenLabs...")
+            transcription_start = time.time()
+            transcription_result = await transcribe_audio_with_elevenlabs(audio_bytes)
+            transcription_time = time.time() - transcription_start
+            print(f"✓ Audio transcription completed in {transcription_time:.1f}s")
+            
+            # Extract text and words from transcription
+            if isinstance(transcription_result, dict):
+                transcription_text = transcription_result.get("text", "")
+                transcription_words = transcription_result.get("words", [])
+            else:
+                # Handle case where API returns different format
+                transcription_text = str(transcription_result)
+            
+            audio_transcription = {
+                "text": transcription_text,
+                "words": transcription_words,
+                "language": transcription_result.get("language_code", "unknown") if isinstance(transcription_result, dict) else None
+            }
+        except Exception as e:
+            print(f"⚠ Warning: Audio transcription failed: {e}")
+            audio_transcription = {
+                "text": "",
+                "words": [],
+                "error": str(e)
+            }
+        
+        total_time = time.time() - start_time
+        print(f"\n{'='*60}")
+        print(f"✓ Video analysis completed in {total_time:.1f}s total")
+        print(f"{'='*60}\n")
+        
+        return {
+            "video_filename": file.filename,
+            "frame_analysis": frame_descriptions,
+            "audio_transcription": audio_transcription,
+            "summary": {
+                "frames_analyzed": len(frame_descriptions),
+                "has_audio_transcription": audio_transcription is not None and audio_transcription.get("text", "") != "",
+                "transcription_text": transcription_text,
+                "processing_time_seconds": round(total_time, 2)
+            }
+        }
+    except Exception as e:
+        print(f"\n❌ Error during video analysis: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
