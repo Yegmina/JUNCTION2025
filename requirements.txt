@@ -8,3 +8,4 @@ pillow==10.1.0
 python-multipart==0.0.20
 requests>=2.31.0
 ultralytics>=8.0.0
+sentence-transformers==3.3.1

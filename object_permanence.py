@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Run YOLO object detection on images in exports/ directory and output CSV with object counts.
-Usage: python3 object_permanence.py [--input-dir exports] [--output-csv results.csv]
-"""
-
 import os
 import sys
 import argparse
@@ -13,16 +7,25 @@ from collections import defaultdict
 
 try:
     from ultralytics import YOLO
+    from PIL import Image
 except ImportError:
     print("❌ Error: ultralytics package not installed")
     print("   Install it with: pip install ultralytics")
     sys.exit(1)
 
 
-def detect_objects_in_image(model, image_path: str) -> dict:
+def detect_objects_in_image(
+    model, image_path: str, save_annotated: bool = False, output_path: str = None
+) -> dict:
     """
     Run YOLO object detection on a single image.
     Returns a dictionary with object category counts.
+
+    Args:
+        model: YOLO model instance
+        image_path: Path to input image
+        save_annotated: Whether to save annotated image
+        output_path: Path to save annotated image (if save_annotated is True)
     """
     try:
         results = model(image_path, verbose=False)
@@ -40,13 +43,25 @@ def detect_objects_in_image(model, image_path: str) -> dict:
                     class_name = model.names[class_id]
                     object_counts[class_name] += 1
 
+            # Save annotated image if requested
+            if save_annotated and output_path:
+                annotated_img = (
+                    result.plot()
+                )  # Creates annotated image with boxes and labels
+                Image.fromarray(annotated_img).save(output_path)
+
         return dict(object_counts)
     except Exception as e:
         print(f"⚠️  Error processing {image_path}: {e}")
         return {}
 
 
-def process_images(input_dir: str, output_csv: str, model_name: str = "yolov8n.pt"):
+def process_images(
+    input_dir: str,
+    output_csv: str,
+    model_name: str = "yolov8n.pt",
+    output_dir: str = "export2",
+):
     """
     Process all images in input_dir and create CSV with object counts.
 
@@ -54,6 +69,7 @@ def process_images(input_dir: str, output_csv: str, model_name: str = "yolov8n.p
         input_dir: Directory containing images
         output_csv: Output CSV file path
         model_name: YOLO model to use (default: yolov8n.pt for nano model)
+        output_dir: Directory to save annotated images (default: export2)
     """
     input_path = Path(input_dir)
 
@@ -86,6 +102,11 @@ def process_images(input_dir: str, output_csv: str, model_name: str = "yolov8n.p
         print("   The model will be downloaded automatically on first use")
         return False
 
+    # Create output directory for annotated images
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    print(f"Annotated images will be saved to: {output_dir}/")
+
     # Process all images and collect object counts
     all_results = []
     all_categories = set()
@@ -93,7 +114,17 @@ def process_images(input_dir: str, output_csv: str, model_name: str = "yolov8n.p
     print("\nProcessing images...")
     for i, image_file in enumerate(image_files, 1):
         print(f"  [{i}/{len(image_files)}] Processing: {image_file.name}")
-        object_counts = detect_objects_in_image(model, str(image_file))
+
+        # Prepare output path for annotated image
+        annotated_output = output_path / image_file.name
+
+        # Detect objects and save annotated image
+        object_counts = detect_objects_in_image(
+            model,
+            str(image_file),
+            save_annotated=True,
+            output_path=str(annotated_output),
+        )
 
         # Store results with image filename
         result_row = {"image": image_file.name}
@@ -128,6 +159,9 @@ def process_images(input_dir: str, output_csv: str, model_name: str = "yolov8n.p
             f"✅ Successfully created CSV with {len(all_results)} row(s) and {len(sorted_categories)} category columns"
         )
         print(f"   Categories detected: {', '.join(sorted_categories)}")
+        print(
+            f"✅ Successfully saved {len(image_files)} annotated image(s) to: {output_dir}/"
+        )
         return True
 
     except Exception as e:
@@ -144,7 +178,7 @@ def main():
 Examples:
   python3 object_permanence.py
   python3 object_permanence.py --input-dir exports --output-csv results.csv
-  python3 object_permanence.py --model yolov8s.pt
+  python3 object_permanence.py --model yolov8s.pt --output-dir export2
         """,
     )
     parser.add_argument(
@@ -165,10 +199,18 @@ Examples:
         default="yolov8n.pt",
         help="YOLO model to use (default: yolov8n.pt). Options: yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt",
     )
+    parser.add_argument(
+        "--output-dir",
+        "-d",
+        default="export2",
+        help="Output directory for annotated images (default: export2)",
+    )
 
     args = parser.parse_args()
 
-    success = process_images(args.input_dir, args.output_csv, args.model)
+    success = process_images(
+        args.input_dir, args.output_csv, args.model, args.output_dir
+    )
 
     if not success:
         sys.exit(1)

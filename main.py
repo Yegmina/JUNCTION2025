@@ -54,11 +54,11 @@ async def lifespan(app: FastAPI):
             print(f"Loaded FAISS index with {faiss_index.ntotal} vectors")
         except Exception as e:
             print(f"Error loading FAISS index: {e}. Creating new index.")
-            faiss_index = faiss.IndexFlatL2(EMBEDDING_DIM)
+            faiss_index = faiss.IndexFlatIP(EMBEDDING_DIM)
             faiss_metadata = []
     else:
         # Create new index
-        faiss_index = faiss.IndexFlatL2(EMBEDDING_DIM)
+        faiss_index = faiss.IndexFlatIP(EMBEDDING_DIM)
         faiss_metadata = []
         print("Created new FAISS index")
 
@@ -153,7 +153,7 @@ async def get_image_description_from_bytes(
                     ],
                 },
             ],
-            max_tokens=1500,
+            max_tokens=500,
             temperature=0,
         )
 
@@ -210,6 +210,9 @@ async def add_image_to_index(image_bytes: bytes, image_path: str = None) -> dict
             # Reshape for FAISS (needs to be 2D array)
             embedding = embedding.reshape(1, -1)
 
+            # Normalize for cosine similarity (L2 normalization)
+            faiss.normalize_L2(embedding)
+
             # Add to FAISS index
             faiss_index.add(embedding)
 
@@ -256,24 +259,31 @@ async def search_similar_images(image_bytes: bytes, top_k: int = 5) -> dict:
         # Reshape for FAISS (needs to be 2D array)
         query_embedding = query_embedding.reshape(1, -1)
 
+        # Normalize for cosine similarity (L2 normalization)
+        faiss.normalize_L2(query_embedding)
+
         # Search in FAISS
-        distances, indices = faiss_index.search(
+        # For IndexFlatIP, returns inner product (cosine similarity for normalized vectors)
+        # Higher values = more similar (range: -1 to 1, typically 0 to 1 for embeddings)
+        similarities, indices = faiss_index.search(
             query_embedding, min(top_k, faiss_index.ntotal)
         )
 
-        # Convert distances to similarity percentages
-        # Using formula: similarity = 1 / (1 + distance) * 100
+        # Convert inner product (cosine similarity) to percentage
+        # Cosine similarity ranges from -1 to 1, but embeddings are typically 0 to 1
+        # Convert to percentage: (similarity + 1) / 2 * 100 for full range, or just similarity * 100 for 0-1 range
         results = []
-        for i, (distance, idx) in enumerate(zip(distances[0], indices[0])):
+        for i, (similarity, idx) in enumerate(zip(similarities[0], indices[0])):
             if idx < len(faiss_metadata):
-                similarity = (1 / (1 + distance)) * 100
+                # Convert cosine similarity (0-1 range) to percentage
+                similarity_percentage = similarity * 100
                 results.append(
                     {
                         "rank": i + 1,
                         "image_path": faiss_metadata[idx]["image_path"],
                         "description": faiss_metadata[idx]["description"],
-                        "similarity_percentage": round(similarity, 2),
-                        "distance": float(distance),
+                        "similarity_percentage": round(similarity_percentage, 2),
+                        "cosine_similarity": float(similarity),
                     }
                 )
 

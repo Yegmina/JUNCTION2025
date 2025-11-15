@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Food Matches</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Stack+Sans+Text:wght@200..700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: "Space Mono", monospace;
+            font-weight: 400;
+            font-style: normal;
+            margin: 20px 300px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 0.85em;
+            table-layout: fixed;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 4px 6px;
+            text-align: center;
+        }
+
+        th:first-child,
+        td:first-child {
+            width: 50px;
+        }
+
+        th:not(:first-child),
+        td:not(:first-child) {
+            width: calc((100% - 200px) / 12);
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            font-size: 0.9em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td.match {
+            text-align: center;
+            background-color: #d4edda;
+        }
+
+        td.no-match {
+            text-align: center;
+            color: #333;
+        }
+
+        td.video-cell {
+            padding: 2px;
+            max-height: 100px;
+        }
+
+        td.video-cell video {
+            max-height: 100px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .info-area {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            font-size: 0.9em;
+            min-height: 4rem;
+        }
+
+        td.match {
+            cursor: pointer;
+        }
+
+        td.match:hover {
+            background-color: #c3e6cb;
+        }
+
+        td.match.glow-effect {
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.8), 0 0 30px rgba(40, 167, 69, 0.6);
+            animation: pulse-glow 2s ease-in-out infinite;
+            position: relative;
+            z-index: 10;
+        }
+
+        td.match.has-info {
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.6), 0 0 20px rgba(40, 167, 69, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        td.no-match.has-info {
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.6), 0 0 20px rgba(220, 53, 69, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .info-area.pink-tint {
+            background-color: #ffe5e5;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(40, 167, 69, 0.8), 0 0 30px rgba(40, 167, 69, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(40, 167, 69, 1), 0 0 40px rgba(40, 167, 69, 0.8);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Video Food Matches</h1>
+
+    <p>
+        Hi, this webpage is intended for the people that wanna see the numbers and know how the inners work.
+    </p>
+
+    <p>
+        If you want to see how pretty it should look, check out our <a href="https://example.com">demo</a>. <s>I'm a
+            Rust programmer give me a break.</s> Below is an interactive table with the numbers our matching algo gives.
+    </p>
+
+    <p>
+        Some of the numbers seemed a little high. This is because all of the values are very aligned in the "food"
+        category. To avoid that we renormalise the data. So we calculate the vector that is the "food" vector and we
+        subtract it from every sentence before doing anything w/ its embedding.
+    </p>
+
+    <p>
+        Below is an interactive version of the table. For some of the videos we were testing on. Each intersection marks
+        percent-wise similarity of the menu item (column) and the video (row). <span
+            style="background-color: rgba(142, 227, 162, 0.8);">Hover the cell</span> to see
+        details about the
+        specific detection
+    </p>
+
+    <div style="text-align: right;">
+        - Artur
+    </div>
+
+    <div class="info-area" id="infoArea">Hover over a <b>match cell</b> to see details</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Video</th>
+                <th>Classic Banh Mi</th>
+                <th>Grilled Pork Banh Mi</th>
+                <th>Avocado Toast</th>
+                <th>French Toast</th>
+                <th>Spicy Chicken Burger</th>
+                <th>BBQ Chicken Burger</th>
+                <th>Yangnyeom Chicken</th>
+                <th>Honey Butter Chicken</th>
+                <th>Hawaiian Pizza</th>
+                <th>Chicken Kebab Pizza</th>
+                <th>Ribeye Steak</th>
+                <th>Tomahawk Steak</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/banmi.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="match">73.4%</td>
+                <td class="match">60.1%</td>
+                <td class="no-match">10.3%</td>
+                <td class="no-match">12.2%</td>
+                <td class="no-match">1.8%</td>
+                <td class="no-match">10.1%</td>
+                <td class="no-match">12.5%</td>
+                <td class="no-match">14.7%</td>
+                <td class="no-match">10.9%</td>
+                <td class="no-match">11.4%</td>
+                <td class="no-match">4.6%</td>
+                <td class="no-match">12.3%</td>
+            </tr>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/breakfast.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="no-match">11.8%</td>
+                <td class="no-match">20.4%</td>
+                <td class="match">69.2%</td>
+                <td class="match">34.4%</td>
+                <td class="no-match">16.2%</td>
+                <td class="no-match">18.5%</td>
+                <td class="no-match">3.9%</td>
+                <td class="no-match">20.0%</td>
+                <td class="no-match">21.3%</td>
+                <td class="no-match">9.6%</td>
+                <td class="no-match">4.6%</td>
+                <td class="no-match">3.8%</td>
+            </tr>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/burger.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="no-match">7.1%</td>
+                <td class="no-match">3.8%</td>
+                <td class="no-match">12.1%</td>
+                <td class="no-match">13.4%</td>
+                <td class="match">75.5%</td>
+                <td class="match">60.6%</td>
+                <td class="no-match">46.5%</td>
+                <td class="no-match">45.2%</td>
+                <td class="no-match">32.0%</td>
+                <td class="no-match">35.8%</td>
+                <td class="no-match">12.2%</td>
+                <td class="no-match">14.6%</td>
+            </tr>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/koreanfood.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="no-match">11.1%</td>
+                <td class="no-match">16.4%</td>
+                <td class="no-match">2.1%</td>
+                <td class="no-match">0.6%</td>
+                <td class="no-match">24.7%</td>
+                <td class="no-match">22.9%</td>
+                <td class="match">75.2%</td>
+                <td class="match">70.3%</td>
+                <td class="no-match">24.5%</td>
+                <td class="no-match">34.3%</td>
+                <td class="no-match">12.8%</td>
+                <td class="no-match">10.7%</td>
+            </tr>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/pizza.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="no-match">0.8%</td>
+                <td class="no-match">1.5%</td>
+                <td class="no-match">0.3%</td>
+                <td class="no-match">1.9%</td>
+                <td class="no-match">18.3%</td>
+                <td class="no-match">15.0%</td>
+                <td class="no-match">13.2%</td>
+                <td class="no-match">5.4%</td>
+                <td class="match">81.2%</td>
+                <td class="match">50.4%</td>
+                <td class="no-match">1.1%</td>
+                <td class="no-match">0.6%</td>
+            </tr>
+            <tr>
+                <td class="video-cell">
+                    <video controls autoplay loop muted>
+                        <source src="videos/steak.mp4" type="video/mp4">
+                    </video>
+                </td>
+                <td class="no-match">14.2%</td>
+                <td class="no-match">9.8%</td>
+                <td class="no-match">4.5%</td>
+                <td class="no-match">8.6%</td>
+                <td class="no-match">14.8%</td>
+                <td class="no-match">10.2%</td>
+                <td class="no-match">1.0%</td>
+                <td class="no-match">0.7%</td>
+                <td class="no-match">1.3%</td>
+                <td class="no-match">0.6%</td>
+                <td class="match">92.1%</td>
+                <td class="match">65.8%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        Also, Yehor prepared a guide on how exactly the entire architecture works in more detail. <a
+            href="https://example.com">The
+            link is here.</a>
+    </p>
+
+    <script>
+        // Dictionary to store coordinate-to-text mappings
+        // Format: { "row_col": "text" }
+        const cellTextDictionary = {};
+
+        function setCellText(row, col, text) {
+            const key = `${row}_${col}`;
+            cellTextDictionary[key] = text;
+        }
+
+        function getCellText(row, col) {
+            const key = `${row}_${col}`;
+            return cellTextDictionary[key] || '';
+        }
+
+        function updateInfoText(text) {
+            const infoArea = document.getElementById('infoArea');
+            infoArea.innerHTML = text;
+        }
+
+        function getMatchCellText(cell, rowIndex, colIndex) {
+            // Check if custom text exists in dictionary
+            const customText = getCellText(rowIndex, colIndex);
+            if (customText) {
+                return customText;
+            }
+            return '';
+        }
+
+        function colorCellByValue(cell) {
+            const text = cell.textContent.trim();
+            const value = parseFloat(text);
+
+            // Only color if it's a valid number
+            if (!isNaN(value) && value >= 0) {
+                // Closer to 0 = more pinkish red, further from 0 = more white
+                // Scale: 0 = light pink/red, 5+ = white
+                const intensity = Math.max(0, Math.min(1, 1 - (value / 20)));
+                const redValue = 255;
+                const greenValue = Math.floor(255 - (intensity * 55)); // 255 (white) to 200 (pinkish)
+                const blueValue = Math.floor(255 - (intensity * 55)); // 255 (white) to 200 (pinkish)
+                cell.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+            }
+        }
+
+        setCellText(0, 1, "The entire cooking process is shown without the algorithm getting tripped over. Nonetheless, still a successful detection.");
+        setCellText(2, 7, "Somehow quite a high result, interesting case to look into further. Probably some erroneous data that aligns with chicken.");
+        setCellText(2, 8, "Similar to Yangnyeom Chicken - burger video getting high match with Korean chicken dishes. Both might share similar visual features like breading, frying techniques, or sauce application.");
+        setCellText(1, 4, "No other place happened to serve those, so our next best option is a different kind of sandwich.");
+        setCellText(1, 2, "Breakfast video matching with Grilled Pork Banh Mi at 20.4%. Both are morning foods, and the sandwich structure might share visual similarities with breakfast items.");
+        setCellText(2, 5, "The burger is in focus a lot of the time so its trivial. It's not chicken, but it's close. Somehow our selection of restaurants for testing didn't include Hesburger and similar ones.");
+        setCellText(3, 7, "Two types of chicken are hard to tell apart, so we find two very close matches that are both friend chicken.");
+        setCellText(3, 10, "Korean chicken video matching Chicken Kebab Pizza at 34.3%. Both involve chicken with similar preparation methods - likely the fried chicken texture and appearance create visual overlap.");
+        setCellText(3, 5, "Korean chicken matching Spicy Chicken Burger at 24.7%. Both are chicken dishes with spicy elements, and the visual similarity in chicken preparation might cause the algorithm to see connections.");
+        setCellText(0, 7, "Banh Mi video matching Yangnyeom Chicken at 14.7%. Both are Asian dishes, and the pickled vegetables in banh mi might share some visual features with Korean chicken accompaniments.");
+        setCellText(4, 10, "Still a pizza, but a different flavor, gets ranked down, but still among the best matches.");
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const matchCells = document.querySelectorAll('td.match');
+            const tbody = document.querySelector('tbody');
+            const rows = Array.from(tbody.children);
+
+            // Add glow effect to the first match cell
+            if (matchCells.length > 0) {
+                const firstMatchCell = matchCells[0];
+                firstMatchCell.classList.add('glow-effect');
+            }
+
+            // Check all cells in the table and add glow to those with custom text
+            rows.forEach((row, rowIndex) => {
+                const cells = Array.from(row.children);
+                cells.forEach((cell, colIndex) => {
+                    // Color no-match cells based on their value
+                    if (cell.classList.contains('no-match')) {
+                        colorCellByValue(cell);
+                    }
+
+                    // Check if this cell has custom text
+                    const customText = getCellText(rowIndex, colIndex);
+                    if (customText) {
+                        if (cell.classList.contains('match')) {
+                            cell.classList.add('has-info');
+                        } else if (cell.classList.contains('no-match')) {
+                            cell.classList.add('has-info');
+                        }
+                    }
+
+                    // Add hover event listener to all cells with text
+                    if (cell.classList.contains('match') || cell.classList.contains('no-match')) {
+                        cell.addEventListener('mouseenter', function () {
+                            // Recalculate customText inside the event listener to get current value
+                            const currentCustomText = getCellText(rowIndex, colIndex);
+                            if (currentCustomText) {
+                                const headers = document.querySelectorAll('th');
+                                const columnName = headers[colIndex] ? headers[colIndex].textContent : '';
+                                const textWithColumn = `<b>${columnName}</b> ${currentCustomText}`;
+                                updateInfoText(textWithColumn);
+
+                                // Add pink tint to info area for no-match cells
+                                if (cell.classList.contains('no-match')) {
+                                    document.getElementById('infoArea').classList.add('pink-tint');
+                                } else {
+                                    document.getElementById('infoArea').classList.remove('pink-tint');
+                                }
+                            }
+                        });
+
+                        cell.addEventListener('mouseleave', function () {
+                            // Remove pink tint when leaving
+                            document.getElementById('infoArea').classList.remove('pink-tint');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
